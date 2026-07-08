@@ -107,6 +107,40 @@ Verification:
 - Confirmed all models import successfully with a Node ESM import check.
 - Confirmed frontend production build still succeeds with `npm run build --workspace client`.
 
+### Phase 3: Authentication & User Module
+
+Status: Complete
+
+Goal: Make login/register secure and functional.
+
+Completed:
+
+- Added registration API with bcrypt password hashing.
+- Added login API with password verification.
+- Added JWT generation and bearer-token authentication.
+- Added protected route middleware for private backend APIs.
+- Added role-based middleware for admin-only APIs.
+- Added current-user API at `GET /api/auth/me`.
+- Added profile setup API at `PUT /api/profile`.
+- Added basic admin summary API at `GET /api/admin/summary`.
+- Added frontend authentication context and token handling.
+- Added protected frontend routes.
+- Added `/login`, `/register`, `/profile-setup`, and `/admin` pages.
+- Added logout flow in the app layout.
+- Documented the auth module in `docs/auth-module.md`.
+
+Verification:
+
+- Confirmed frontend lint succeeds with `npm run lint --workspace client`.
+- Confirmed frontend production build succeeds with `npm run build --workspace client`.
+- Confirmed server modules import successfully with a Node ESM import check.
+- Confirmed `POST /api/auth/register` returns `201` and creates a JWT session.
+- Confirmed `POST /api/auth/login` returns `200` and creates a JWT session.
+- Confirmed `GET /api/auth/me` returns `200` with a bearer token.
+- Confirmed `PUT /api/profile` returns `200` with a bearer token.
+- Confirmed `GET /api/admin/summary` returns `403` for a non-admin user.
+- Confirmed frontend `/login` route returns `200 OK` in the Vite dev server.
+
 ## Environment Variables
 
 Frontend variables live in `client/.env`.
