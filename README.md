@@ -87,6 +87,26 @@ Notes:
 - MongoDB connected successfully during backend verification.
 - Recharts v2 installed with a deprecation warning; chart implementation is planned for later phases, where we can upgrade to Recharts v3 before building analytics.
 
+### Phase 2: Requirement Breakdown & Data Modeling
+
+Status: Complete
+
+Goal: Convert the project statement into database models and app modules.
+
+Completed:
+
+- Added Mongoose models for `users`, `profiles`, `transactions`, `habits`, `habitLogs`, `savingsGoals`, `assets`, and `feedback`.
+- Added validation rules for required fields, enum values, positive financial amounts, and basic text limits.
+- Added user-scoped indexes for dashboard, history, analytics, and admin queries.
+- Added relationship references between user-owned records and their parent user.
+- Added a model export file at `server/src/models/index.js`.
+- Documented application modules, collection fields, relationships, indexes, and page-to-collection mapping in `docs/data-model.md`.
+
+Verification:
+
+- Confirmed all models import successfully with a Node ESM import check.
+- Confirmed frontend production build still succeeds with `npm run build --workspace client`.
+
 ## Environment Variables
 
 Frontend variables live in `client/.env`.
