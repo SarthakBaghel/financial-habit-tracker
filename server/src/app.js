@@ -5,8 +5,10 @@ import morgan from "morgan";
 import adminRoutes from "./routes/adminRoutes.js";
 import authRoutes from "./routes/authRoutes.js";
 import dashboardRoutes from "./routes/dashboardRoutes.js";
+import habitRoutes from "./routes/habitRoutes.js";
 import healthRoutes from "./routes/healthRoutes.js";
 import profileRoutes from "./routes/profileRoutes.js";
+import transactionRoutes from "./routes/transactionRoutes.js";
 import { notFound, errorHandler } from "./middleware/errorMiddleware.js";
 
 const app = express();
@@ -25,6 +27,8 @@ app.use("/api/auth", authRoutes);
 app.use("/api/profile", profileRoutes);
 app.use("/api/admin", adminRoutes);
 app.use("/api/dashboard", dashboardRoutes);
+app.use("/api/transactions", transactionRoutes);
+app.use("/api/habits", habitRoutes);
 app.use("/api/health", healthRoutes);
 
 app.use(notFound);

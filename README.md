@@ -183,6 +183,71 @@ Notes:
 
 - Production build currently warns that the chart bundle is larger than 500 kB after adding Recharts. This does not block functionality; code-splitting can be added during final optimization.
 
+### Phase 5: Income & Expense Tracking
+
+Status: Complete
+
+Goal: Allow users to manually track income and expenses with summaries.
+
+Completed:
+
+- Added protected transaction API routes under `GET/POST/PUT/DELETE /api/transactions`.
+- Added transaction filtering by month, category, and type.
+- Added supported expense categories: Food, Rent, Transport, Shopping, Bills, Health, Education, Entertainment, Other.
+- Added monthly summary calculations for total income, total expenses, net savings, savings rate, transaction count, and category totals.
+- Added `/transactions` frontend page.
+- Added income/expense form.
+- Added transaction edit/delete controls.
+- Added transaction history table.
+- Added transaction summary cards.
+- Wired dashboard quick action and sidebar navigation to the transaction page.
+- Documented the module in `docs/transactions-module.md`.
+
+Verification:
+
+- Confirmed frontend lint succeeds with `npm run lint --workspace client`.
+- Confirmed frontend production build succeeds with `npm run build --workspace client`.
+- Confirmed server modules import successfully with a Node ESM import check.
+- Confirmed `POST /api/transactions` creates income and expense records with `201`.
+- Confirmed `PUT /api/transactions/:id` updates a user-owned transaction with `200`.
+- Confirmed `DELETE /api/transactions/:id` deletes a user-owned transaction with `200`.
+- Confirmed `GET /api/transactions?month=YYYY-MM` returns filtered history and summary totals with `200`.
+- Confirmed frontend `/transactions` route returns `200 OK` in the Vite dev server.
+
+### Phase 6: Financial Habit Tracker
+
+Status: Complete
+
+Goal: Add the YNAB-style habit-building layer.
+
+Completed:
+
+- Added protected habit API routes under `GET/POST/PUT/DELETE /api/habits`.
+- Added habit creation with daily, weekly, and monthly frequency.
+- Added habit completion logging at `POST /api/habits/:id/log`.
+- Added period-normalized habit logs for daily, weekly, and monthly habits.
+- Added streak recalculation after each habit log.
+- Added completion rate, completed count, expected count, and missed count.
+- Added aggregate habit summary API.
+- Added `/habits` frontend page.
+- Added habit creation form, starter suggestions, complete/missed actions, progress bars, streak display, and simple reminders UI.
+- Wired sidebar navigation to the habit tracker page.
+- Documented the module in `docs/habits-module.md`.
+
+Verification:
+
+- Confirmed frontend lint succeeds with `npm run lint --workspace client`.
+- Confirmed frontend production build succeeds with `npm run build --workspace client`.
+- Confirmed server modules import successfully with a Node ESM import check.
+- Confirmed `POST /api/habits` creates a financial habit with `201`.
+- Confirmed `POST /api/habits/:id/log` marks habit completion/missed periods with `200`.
+- Confirmed `GET /api/habits` returns habit summary with `200`.
+- Confirmed frontend `/habits` route returns `200 OK` in the Vite dev server.
+
+Notes:
+
+- Phase 5/6 smoke tests created one temporary test user with sample transactions and habits in local MongoDB.
+
 ## Environment Variables
 
 Frontend variables live in `client/.env`.

@@ -146,13 +146,12 @@ export default function DashboardPage() {
             Update Profile
             <ArrowRight className="h-4 w-4" aria-hidden="true" />
           </Link>
-          <button
-            className="inline-flex cursor-not-allowed items-center justify-center gap-2 rounded-md border border-slate-200 px-4 py-2 text-sm font-semibold text-slate-500"
-            disabled
-            type="button"
+          <Link
+            className="inline-flex items-center justify-center gap-2 rounded-md border border-slate-200 px-4 py-2 text-sm font-semibold text-slate-700 hover:bg-white"
+            to="/transactions"
           >
             Add Transaction
-          </button>
+          </Link>
         </div>
       </header>
 

@@ -5,8 +5,8 @@ import useAuth from "../hooks/useAuth.js";
 const navigation = [
   { label: "Dashboard", icon: Home, to: "/" },
   { label: "Profile Setup", icon: UserRound, to: "/profile-setup" },
-  { label: "Expenses", icon: CircleDollarSign, to: "/" },
-  { label: "Habits", icon: Target, to: "/" },
+  { label: "Expenses", icon: CircleDollarSign, to: "/transactions" },
+  { label: "Habits", icon: Target, to: "/habits" },
   { label: "Analytics", icon: BarChart3, to: "/" },
   { label: "Admin", icon: UserCog, to: "/admin", adminOnly: true }
 ];

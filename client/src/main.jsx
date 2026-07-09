@@ -5,9 +5,11 @@ import App from "./App.jsx";
 import { AuthProvider } from "./contexts/AuthContext.jsx";
 import AdminPage from "./pages/AdminPage.jsx";
 import DashboardPage from "./pages/DashboardPage.jsx";
+import HabitsPage from "./pages/HabitsPage.jsx";
 import LoginPage from "./pages/LoginPage.jsx";
 import ProfileSetupPage from "./pages/ProfileSetupPage.jsx";
 import RegisterPage from "./pages/RegisterPage.jsx";
+import TransactionsPage from "./pages/TransactionsPage.jsx";
 import AdminRoute from "./routes/AdminRoute.jsx";
 import ProtectedRoute from "./routes/ProtectedRoute.jsx";
 import "./styles/index.css";
@@ -36,6 +38,14 @@ const router = createBrowserRouter([
       {
         path: "profile-setup",
         element: <ProfileSetupPage />
+      },
+      {
+        path: "transactions",
+        element: <TransactionsPage />
+      },
+      {
+        path: "habits",
+        element: <HabitsPage />
       },
       {
         path: "admin",
