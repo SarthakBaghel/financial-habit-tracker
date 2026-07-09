@@ -141,6 +141,48 @@ Verification:
 - Confirmed `GET /api/admin/summary` returns `403` for a non-admin user.
 - Confirmed frontend `/login` route returns `200 OK` in the Vite dev server.
 
+### Phase 4: Main User Dashboard
+
+Status: Complete
+
+Goal: Build the Mint-style overview dashboard using actual database data.
+
+Completed:
+
+- Added protected dashboard API at `GET /api/dashboard/overview`.
+- Aggregated total income, total expenses, net savings, and savings rate from `transactions`.
+- Aggregated active habit count from `habits`.
+- Aggregated savings goal progress from `savingsGoals`.
+- Aggregated current asset value and wealth growth trend from `assets` and net savings.
+- Added recent transaction feed from latest transaction records.
+- Added monthly expense data for a bar chart.
+- Added category-wise expense data for a pie chart.
+- Replaced sample dashboard values with live API data.
+- Added summary cards, wealth trend chart, monthly expense chart, category spending chart, goal progress list, recent transactions table, and quick action buttons.
+- Added dashboard empty states for users with no financial records yet.
+- Documented the dashboard module in `docs/dashboard-module.md`.
+
+Verification:
+
+- Confirmed frontend lint succeeds with `npm run lint --workspace client`.
+- Confirmed frontend production build succeeds with `npm run build --workspace client`.
+- Confirmed dashboard server modules import successfully with a Node ESM import check.
+- Confirmed `GET /api/dashboard/overview` returns `200` for an authenticated user.
+- Smoke-tested dashboard aggregation with realistic MongoDB records:
+  - Total income: `98000`
+  - Total expenses: `37700`
+  - Net savings: `60300`
+  - Savings rate: `62`
+  - Active habits: `2`
+  - Average goal progress: `40`
+  - Current asset value: `110000`
+- Confirmed recent transactions and category spending are returned from database records.
+- Confirmed frontend root route returns `200 OK` in the Vite dev server.
+
+Notes:
+
+- Production build currently warns that the chart bundle is larger than 500 kB after adding Recharts. This does not block functionality; code-splitting can be added during final optimization.
+
 ## Environment Variables
 
 Frontend variables live in `client/.env`.
