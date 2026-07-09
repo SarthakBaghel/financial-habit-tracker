@@ -1,28 +1,36 @@
-import React from "react";
+import React, { Suspense, lazy } from "react";
 import ReactDOM from "react-dom/client";
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import App from "./App.jsx";
+import PageLoader from "./components/ui/PageLoader.jsx";
 import { AuthProvider } from "./contexts/AuthContext.jsx";
-import AdminPage from "./pages/AdminPage.jsx";
-import DashboardPage from "./pages/DashboardPage.jsx";
-import HabitsPage from "./pages/HabitsPage.jsx";
-import LoginPage from "./pages/LoginPage.jsx";
-import ProfileSetupPage from "./pages/ProfileSetupPage.jsx";
-import RegisterPage from "./pages/RegisterPage.jsx";
-import SavingsGoalsPage from "./pages/SavingsGoalsPage.jsx";
-import TransactionsPage from "./pages/TransactionsPage.jsx";
 import AdminRoute from "./routes/AdminRoute.jsx";
 import ProtectedRoute from "./routes/ProtectedRoute.jsx";
 import "./styles/index.css";
 
+const AdminPage = lazy(() => import("./pages/AdminPage.jsx"));
+const AnalyticsPage = lazy(() => import("./pages/AnalyticsPage.jsx"));
+const DashboardPage = lazy(() => import("./pages/DashboardPage.jsx"));
+const HabitsPage = lazy(() => import("./pages/HabitsPage.jsx"));
+const LoginPage = lazy(() => import("./pages/LoginPage.jsx"));
+const NotFoundPage = lazy(() => import("./pages/NotFoundPage.jsx"));
+const ProfileSetupPage = lazy(() => import("./pages/ProfileSetupPage.jsx"));
+const RegisterPage = lazy(() => import("./pages/RegisterPage.jsx"));
+const SavingsGoalsPage = lazy(() => import("./pages/SavingsGoalsPage.jsx"));
+const TransactionsPage = lazy(() => import("./pages/TransactionsPage.jsx"));
+
+function withPageLoader(element) {
+  return <Suspense fallback={<PageLoader />}>{element}</Suspense>;
+}
+
 const router = createBrowserRouter([
   {
     path: "/login",
-    element: <LoginPage />
+    element: withPageLoader(<LoginPage />)
   },
   {
     path: "/register",
-    element: <RegisterPage />
+    element: withPageLoader(<RegisterPage />)
   },
   {
     path: "/",
@@ -34,31 +42,39 @@ const router = createBrowserRouter([
     children: [
       {
         index: true,
-        element: <DashboardPage />
+        element: withPageLoader(<DashboardPage />)
       },
       {
         path: "profile-setup",
-        element: <ProfileSetupPage />
+        element: withPageLoader(<ProfileSetupPage />)
       },
       {
         path: "transactions",
-        element: <TransactionsPage />
+        element: withPageLoader(<TransactionsPage />)
       },
       {
         path: "habits",
-        element: <HabitsPage />
+        element: withPageLoader(<HabitsPage />)
       },
       {
         path: "savings-goals",
-        element: <SavingsGoalsPage />
+        element: withPageLoader(<SavingsGoalsPage />)
+      },
+      {
+        path: "analytics",
+        element: withPageLoader(<AnalyticsPage />)
       },
       {
         path: "admin",
         element: (
           <AdminRoute>
-            <AdminPage />
+            {withPageLoader(<AdminPage />)}
           </AdminRoute>
         )
+      },
+      {
+        path: "*",
+        element: withPageLoader(<NotFoundPage />)
       }
     ]
   }

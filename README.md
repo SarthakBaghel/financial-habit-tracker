@@ -85,7 +85,7 @@ Notes:
 
 - Local server verification required elevated localhost permissions in the Codex sandbox.
 - MongoDB connected successfully during backend verification.
-- Recharts v2 installed with a deprecation warning; chart implementation is planned for later phases, where we can upgrade to Recharts v3 before building analytics.
+- Recharts v2 installed with a deprecation warning; charts are implemented in later phases and route-level splitting is added in Phase 10.
 
 ### Phase 2: Requirement Breakdown & Data Modeling
 
@@ -181,7 +181,7 @@ Verification:
 
 Notes:
 
-- Production build currently warns that the chart bundle is larger than 500 kB after adding Recharts. This does not block functionality; code-splitting can be added during final optimization.
+- Phase 10 later resolves the chart bundle warning by lazy-loading chart-heavy routes.
 
 ### Phase 5: Income & Expense Tracking
 
@@ -288,6 +288,123 @@ Verification:
 Notes:
 
 - Phase 7 smoke tests created one temporary test user and one temporary savings goal in local MongoDB.
+
+### Phase 8: Wealth Growth & Analytics
+
+Status: Complete
+
+Goal: Track net worth and financial growth over time.
+
+Completed:
+
+- Added protected asset API routes under `/api/assets`.
+- Added manual creation, editing, listing, and deletion of savings, investment, and asset entries.
+- Added protected wealth analytics API at `GET /api/analytics/wealth`.
+- Added total savings calculation from income minus expenses.
+- Added investment/assets value calculations from latest manual asset entries.
+- Added net worth calculation from net savings plus asset values.
+- Added six-month net worth trend.
+- Added monthly income vs expense activity.
+- Added savings rate over time.
+- Added savings goal progress chart data.
+- Added habit completion chart data.
+- Added simple insight generation from savings rate, net worth, habits, and goals.
+- Added `/analytics` frontend page.
+- Added asset form and tracked assets table.
+- Added net worth, income vs expense, savings rate, savings goal progress, and habit completion charts.
+- Wired sidebar navigation to the analytics page.
+- Documented the module in `docs/wealth-analytics-module.md`.
+
+Verification:
+
+- Confirmed frontend lint succeeds with `npm run lint --workspace client`.
+- Confirmed frontend production build succeeds with `npm run build --workspace client`.
+- Confirmed server modules import successfully with a Node ESM import check.
+- Confirmed `POST /api/assets` creates an asset entry with `201`.
+- Confirmed `PUT /api/assets/:id` updates an asset entry with `200`.
+- Confirmed `DELETE /api/assets/:id` deletes an asset entry with `200`.
+- Confirmed `GET /api/analytics/wealth` returns summary, chart data, assets, and insights with `200`.
+- Smoke-tested analytics with realistic MongoDB records:
+  - Total savings: `66000`
+  - Investment value: `130000`
+  - Net worth: `196000`
+  - Savings rate: `66`
+  - Habit completion rate: `100`
+  - Average goal progress: `40`
+- Confirmed analytics chart datasets return six-month trend/activity/habit arrays and savings goal progress data.
+- Confirmed frontend `/analytics` route returns `200 OK` in the Vite dev server.
+
+Notes:
+
+- Phase 8 smoke tests created one temporary test user with sample transactions, one savings goal, one habit, and one temporary asset entry in local MongoDB.
+- Phase 10 later resolves the chart bundle warning with route-level code splitting.
+
+### Phase 9: Basic Admin Dashboard
+
+Status: Complete
+
+Goal: Allow admins to monitor platform activity and user engagement.
+
+Completed:
+
+- Expanded protected admin API routes under `/api/admin`.
+- Added admin summary metrics for total users, active users, transactions, habit completion, savings goal completion, and feedback/issues.
+- Added basic platform usage analytics.
+- Added admin users list API.
+- Added admin feedback/issues list API.
+- Added feedback status update API.
+- Rebuilt `/admin` frontend page with Overview, Users, and Feedback tabs.
+- Added summary metric cards, platform usage section, users table, feedback list, loading states, and empty states.
+- Documented the module in `docs/admin-module.md`.
+
+Verification:
+
+- Confirmed frontend lint succeeds with `npm run lint --workspace client`.
+- Confirmed frontend production build succeeds with `npm run build --workspace client`.
+- Confirmed server modules import successfully with a Node ESM import check.
+- Confirmed `GET /api/admin/summary` returns admin metrics with `200`.
+- Confirmed `GET /api/admin/users` returns users list with `200`.
+- Confirmed `GET /api/admin/feedback` returns feedback/issues list with `200`.
+- Confirmed `PATCH /api/admin/feedback/:id` updates feedback status with `200`.
+- Confirmed frontend `/admin` route returns `200 OK` in the Vite dev server.
+
+Notes:
+
+- Phase 9 smoke tests created one temporary admin user and one temporary feedback item in local MongoDB.
+
+### Phase 10: UI Polish & Responsive Design
+
+Status: Complete
+
+Goal: Make the app feel submission-ready and responsive.
+
+Completed:
+
+- Added mobile sticky header.
+- Added mobile slide-out navigation drawer.
+- Preserved consistent desktop sidebar navigation.
+- Added mobile-accessible logout.
+- Improved active navigation styling.
+- Added route-level loading states for auth and app pages.
+- Added route-level code splitting for chart-heavy pages.
+- Added an authenticated 404 page with dashboard recovery action.
+- Added skip-to-content navigation and visible keyboard focus styling.
+- Improved admin page spacing, tabs, loading states, empty states, and data presentation.
+- Maintained consistent cards, forms, tables, charts, and validation/error patterns across modules.
+- Documented UI polish in `docs/ui-polish.md`.
+
+Verification:
+
+- Confirmed frontend lint succeeds with `npm run lint --workspace client`.
+- Confirmed frontend production build succeeds with `npm run build --workspace client`.
+- Confirmed frontend `/` route returns `200 OK` in the Vite dev server.
+- Confirmed frontend `/admin` route returns `200 OK` in the Vite dev server.
+- Confirmed backend health check returns `200 OK` when started on temporary port `5010`.
+
+Notes:
+
+- Route-level code splitting removed the previous chart bundle-size warning in the production build.
+- Port `5001` was already occupied during final verification, so the backend smoke test used temporary port `5010`.
 
 ## Environment Variables
 
