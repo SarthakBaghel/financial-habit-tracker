@@ -49,6 +49,12 @@ Run only the backend:
 npm run dev:server
 ```
 
+Run the Phase 11 validation and frontend quality checks:
+
+```bash
+npm test
+```
+
 Default local URLs:
 
 - Frontend: `http://localhost:5173`
@@ -405,6 +411,29 @@ Notes:
 
 - Route-level code splitting removed the previous chart bundle-size warning in the production build.
 - Port `5001` was already occupied during final verification, so the backend smoke test used temporary port `5010`.
+
+### Phase 11: Testing & Validation
+
+Status: Complete
+
+Goal: Verify the complete financial tracking journey using realistic test data.
+
+Completed:
+
+- Added a repeatable backend validation runner at `server/scripts/phase11Validation.js`.
+- Added `npm run test:validation --workspace server` for API and data-flow validation.
+- Added root `npm test`, which runs API validation, client linting, and the production build.
+- Covered registration, login, protected routes, profile setup, transaction CRUD and summaries, savings-goal progress, habit completion and streaks, asset CRUD, dashboard calculations, wealth analytics, and admin monitoring flows.
+- Added invalid-input checks for authentication, transaction, and admin feedback status validation.
+- Added a documented browser and mobile responsive checklist for submission testing.
+- Kept test runs isolated: each run creates and cleans up one unique local test user and all related records.
+- Documented the complete validation approach in `docs/testing-validation.md`.
+
+Verification:
+
+- Confirmed `npm test` passes with 19 API checks, client linting, and a production build using MongoDB from `server/.env`.
+- Confirmed protected-route redirect, registration flow, and the `390px` mobile navigation/layout pass in a clean local browser validation environment.
+- See `docs/testing-validation.md` for the full automated coverage and browser validation record.
 
 ## Environment Variables
 
