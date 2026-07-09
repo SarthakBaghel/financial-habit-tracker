@@ -1,4 +1,4 @@
-import { BarChart3, CircleDollarSign, Home, LogOut, Target, UserCog, UserRound } from "lucide-react";
+import { BarChart3, CircleDollarSign, Home, LogOut, PiggyBank, Target, UserCog, UserRound } from "lucide-react";
 import { NavLink } from "react-router-dom";
 import useAuth from "../hooks/useAuth.js";
 
@@ -7,6 +7,7 @@ const navigation = [
   { label: "Profile Setup", icon: UserRound, to: "/profile-setup" },
   { label: "Expenses", icon: CircleDollarSign, to: "/transactions" },
   { label: "Habits", icon: Target, to: "/habits" },
+  { label: "Savings Goals", icon: PiggyBank, to: "/savings-goals" },
   { label: "Analytics", icon: BarChart3, to: "/" },
   { label: "Admin", icon: UserCog, to: "/admin", adminOnly: true }
 ];

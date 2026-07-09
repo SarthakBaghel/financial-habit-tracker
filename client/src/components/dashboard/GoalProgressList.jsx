@@ -1,4 +1,5 @@
 import { formatCurrency, formatDate } from "../../utils/formatters.js";
+import { Link } from "react-router-dom";
 
 export default function GoalProgressList({ currency, goals }) {
   return (
@@ -33,7 +34,13 @@ export default function GoalProgressList({ currency, goals }) {
       ) : (
         <div className="rounded-lg border border-dashed border-slate-300 bg-slate-50 px-4 py-8 text-center">
           <p className="font-semibold text-slate-800">No savings goals yet</p>
-          <p className="mt-2 text-sm text-muted">Savings goals will become actionable in Phase 7.</p>
+          <p className="mt-2 text-sm text-muted">Create goals to track target amounts, deadlines, and progress.</p>
+          <Link
+            className="mt-4 inline-flex rounded-md bg-brand px-4 py-2 text-sm font-semibold text-white hover:bg-blue-700"
+            to="/savings-goals"
+          >
+            Create Goal
+          </Link>
         </div>
       )}
     </section>

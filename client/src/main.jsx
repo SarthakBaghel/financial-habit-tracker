@@ -9,6 +9,7 @@ import HabitsPage from "./pages/HabitsPage.jsx";
 import LoginPage from "./pages/LoginPage.jsx";
 import ProfileSetupPage from "./pages/ProfileSetupPage.jsx";
 import RegisterPage from "./pages/RegisterPage.jsx";
+import SavingsGoalsPage from "./pages/SavingsGoalsPage.jsx";
 import TransactionsPage from "./pages/TransactionsPage.jsx";
 import AdminRoute from "./routes/AdminRoute.jsx";
 import ProtectedRoute from "./routes/ProtectedRoute.jsx";
@@ -46,6 +47,10 @@ const router = createBrowserRouter([
       {
         path: "habits",
         element: <HabitsPage />
+      },
+      {
+        path: "savings-goals",
+        element: <SavingsGoalsPage />
       },
       {
         path: "admin",

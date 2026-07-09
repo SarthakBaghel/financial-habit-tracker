@@ -248,6 +248,47 @@ Notes:
 
 - Phase 5/6 smoke tests created one temporary test user with sample transactions and habits in local MongoDB.
 
+### Phase 7: Savings Goals
+
+Status: Complete
+
+Goal: Help users create and monitor savings goals visually.
+
+Completed:
+
+- Added protected savings-goal API routes under `/api/savings-goals`.
+- Added goal creation with title, target amount, current saved amount, deadline, category, and lifecycle status.
+- Added goal edit/delete support.
+- Added progress update endpoint at `PATCH /api/savings-goals/:id/progress`.
+- Added computed percentage completion.
+- Added computed remaining amount.
+- Added computed display status: On track, Behind, Completed, or Paused.
+- Added `/savings-goals` frontend page.
+- Added goal creation/edit form.
+- Added visual goal list with progress bars and status badges.
+- Added goal details/progress view.
+- Added progress update form.
+- Added summary cards for total goals, completed goals, total saved, and remaining amount.
+- Wired sidebar navigation and dashboard quick action to the savings goals page.
+- Documented the module in `docs/savings-goals-module.md`.
+
+Verification:
+
+- Confirmed frontend lint succeeds with `npm run lint --workspace client`.
+- Confirmed frontend production build succeeds with `npm run build --workspace client`.
+- Confirmed server modules import successfully with a Node ESM import check.
+- Confirmed `POST /api/savings-goals` creates a goal with `201`.
+- Confirmed `GET /api/savings-goals` returns goals and summary totals with `200`.
+- Confirmed `PATCH /api/savings-goals/:id/progress` updates saved amount with `200`.
+- Confirmed progress update marks a completed goal as `Completed` with `100%` progress and `0` remaining amount.
+- Confirmed `PUT /api/savings-goals/:id` updates goal details with `200`.
+- Confirmed `DELETE /api/savings-goals/:id` deletes a goal with `200`.
+- Confirmed frontend `/savings-goals` route returns `200 OK` in the Vite dev server.
+
+Notes:
+
+- Phase 7 smoke tests created one temporary test user and one temporary savings goal in local MongoDB.
+
 ## Environment Variables
 
 Frontend variables live in `client/.env`.
