@@ -20,11 +20,12 @@ import EmptyState from "../components/dashboard/EmptyState.jsx";
 import GoalProgressList from "../components/dashboard/GoalProgressList.jsx";
 import RecentTransactionsTable from "../components/dashboard/RecentTransactionsTable.jsx";
 import SummaryCard from "../components/dashboard/SummaryCard.jsx";
+import PageHeader from "../components/ui/PageHeader.jsx";
 import useAuth from "../hooks/useAuth.js";
 import api from "../services/api.js";
 import { formatCurrency, formatPercent } from "../utils/formatters.js";
 
-const categoryColors = ["#2563eb", "#0f766e", "#b45309", "#7c3aed", "#dc2626", "#0891b2"];
+const categoryColors = ["#1e4d3a", "#f4c95d", "#0d5d86", "#c45f4b", "#2f7d5d", "#a5650b"];
 
 const emptyDashboard = {
   currency: "INR",
@@ -96,14 +97,14 @@ export default function DashboardPage() {
         value: formatCurrency(dashboard.summary.totalExpenses, currency),
         helper: "Manual expenses tracked",
         icon: TrendingDown,
-        tone: "amber"
+        tone: "coral"
       },
       {
         label: "Net Savings",
         value: formatCurrency(dashboard.summary.netSavings, currency),
         helper: `${formatPercent(dashboard.summary.savingsRate)} savings rate`,
         icon: PiggyBank,
-        tone: "brand"
+        tone: "amber"
       },
       {
         label: "Active Habits",
@@ -130,36 +131,33 @@ export default function DashboardPage() {
 
   return (
     <div className="space-y-6">
-      <header className="flex flex-col gap-4 border-b border-slate-200 pb-5 md:flex-row md:items-center md:justify-between">
-        <div>
-          <p className="text-sm font-semibold text-brand">Mint-style overview</p>
-          <h2 className="mt-1 text-3xl font-bold tracking-normal">Welcome, {user?.name}</h2>
-          <p className="mt-2 max-w-2xl text-sm leading-6 text-muted">
-            Your income, spending, savings goals, habits, and wealth growth in one working dashboard.
-          </p>
-        </div>
-        <div className="flex flex-wrap gap-2">
+      <PageHeader
+        eyebrow="Your financial rhythm"
+        status="On track"
+        title={`Welcome back, ${user?.name || "there"}`}
+        description="Your income, spending, savings goals, habits, and wealth growth in one calm workspace."
+        actions={<>
           <Link
-            className="inline-flex items-center justify-center gap-2 rounded-md bg-brand px-4 py-2 text-sm font-semibold text-white shadow-soft hover:bg-blue-700"
+            className="inline-flex items-center justify-center gap-2 rounded-md bg-brand px-4 py-2 text-sm font-semibold text-white shadow-soft hover:bg-[#173d2e]"
             to="/dashboard/profile-setup"
           >
             Update Profile
             <ArrowRight className="h-4 w-4" aria-hidden="true" />
           </Link>
           <Link
-            className="inline-flex items-center justify-center gap-2 rounded-md border border-slate-200 px-4 py-2 text-sm font-semibold text-slate-700 hover:bg-white"
+            className="inline-flex items-center justify-center gap-2 rounded-md border border-[#e1d7c3] bg-white px-4 py-2 text-sm font-semibold text-slate-700 hover:bg-[#f7f1e2]"
             to="/dashboard/transactions"
           >
             Add Transaction
           </Link>
           <Link
-            className="inline-flex items-center justify-center gap-2 rounded-md border border-slate-200 px-4 py-2 text-sm font-semibold text-slate-700 hover:bg-white"
+            className="inline-flex items-center justify-center gap-2 rounded-md border border-[#e1d7c3] bg-white px-4 py-2 text-sm font-semibold text-slate-700 hover:bg-[#f7f1e2]"
             to="/dashboard/savings-goals"
           >
             Add Goal
           </Link>
-        </div>
-      </header>
+        </>}
+      />
 
       {error ? <p className="rounded-md bg-red-50 px-3 py-2 text-sm text-red-700">{error}</p> : null}
 
@@ -170,7 +168,7 @@ export default function DashboardPage() {
       </section>
 
       <section className="grid gap-4 lg:grid-cols-3">
-        <article className="rounded-lg border border-slate-200 bg-white p-5 shadow-soft lg:col-span-2">
+        <article className="rounded-lg border border-[#e8dfce] bg-white p-5 shadow-soft lg:col-span-2">
           <div className="mb-4 flex items-start justify-between gap-4">
             <div>
               <h3 className="text-lg font-bold">Current Wealth Position</h3>
@@ -187,7 +185,7 @@ export default function DashboardPage() {
           </p>
         </article>
 
-        <article className="rounded-lg border border-slate-200 bg-white p-5 shadow-soft">
+        <article className="rounded-lg border border-[#e8dfce] bg-white p-5 shadow-soft">
           <div className="mb-4 flex items-start justify-between gap-4">
             <div>
               <h3 className="text-lg font-bold">Spending Load</h3>
@@ -213,15 +211,15 @@ export default function DashboardPage() {
               <AreaChart data={dashboard.charts.wealthTrend}>
                 <defs>
                   <linearGradient id="wealthGradient" x1="0" x2="0" y1="0" y2="1">
-                    <stop offset="5%" stopColor="#2563eb" stopOpacity={0.35} />
-                    <stop offset="95%" stopColor="#2563eb" stopOpacity={0.03} />
+                    <stop offset="5%" stopColor="#1e4d3a" stopOpacity={0.32} />
+                    <stop offset="95%" stopColor="#1e4d3a" stopOpacity={0.03} />
                   </linearGradient>
                 </defs>
-                <CartesianGrid stroke="#e2e8f0" strokeDasharray="3 3" />
+                <CartesianGrid stroke="#e8dfce" strokeDasharray="3 3" />
                 <XAxis dataKey="month" tickLine={false} />
                 <YAxis tickFormatter={(value) => formatCurrency(value, currency)} tickLine={false} width={88} />
                 <Tooltip formatter={(value) => formatCurrency(value, currency)} />
-                <Area dataKey="value" fill="url(#wealthGradient)" stroke="#2563eb" strokeWidth={2} type="monotone" />
+                <Area dataKey="value" fill="url(#wealthGradient)" stroke="#1e4d3a" strokeWidth={2} type="monotone" />
               </AreaChart>
             </ResponsiveContainer>
           ) : (
@@ -236,11 +234,11 @@ export default function DashboardPage() {
           {hasMonthlyExpenses ? (
             <ResponsiveContainer height="100%" width="100%">
               <BarChart data={dashboard.charts.monthlyExpenses}>
-                <CartesianGrid stroke="#e2e8f0" strokeDasharray="3 3" />
+                <CartesianGrid stroke="#e8dfce" strokeDasharray="3 3" />
                 <XAxis dataKey="month" tickLine={false} />
                 <YAxis tickFormatter={(value) => formatCurrency(value, currency)} tickLine={false} width={88} />
                 <Tooltip formatter={(value) => formatCurrency(value, currency)} />
-                <Bar dataKey="amount" fill="#b45309" radius={[6, 6, 0, 0]} />
+                <Bar dataKey="amount" fill="#c45f4b" radius={[6, 6, 0, 0]} />
               </BarChart>
             </ResponsiveContainer>
           ) : (

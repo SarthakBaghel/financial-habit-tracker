@@ -1,13 +1,14 @@
 export default function SummaryCard({ icon: Icon, label, value, helper, tone = "brand" }) {
   const toneClass = {
-    brand: "text-brand bg-blue-50",
-    mint: "text-mint bg-teal-50",
-    amber: "text-amber bg-amber-50",
-    slate: "text-slate-700 bg-slate-100"
+    brand: "text-brand bg-[#e6f3eb]",
+    mint: "text-mint bg-[#e7f4ed]",
+    amber: "text-amber bg-[#fff1c7]",
+    slate: "text-analytics bg-[#e6f1f8]",
+    coral: "text-coral bg-[#fff1df]"
   }[tone];
 
   return (
-    <article className="rounded-lg border border-slate-200 bg-white p-5 shadow-soft">
+    <article className="rounded-lg border border-[#e8dfce] bg-white p-5 shadow-soft">
       <div className="flex items-start justify-between gap-4">
         <div>
           <p className="text-sm font-medium text-muted">{label}</p>

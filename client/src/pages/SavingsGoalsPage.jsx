@@ -3,6 +3,7 @@ import { CheckCircle2, Edit2, PiggyBank, Plus, Target, Trash2 } from "lucide-rea
 import api from "../services/api.js";
 import { formatCurrency, formatDate } from "../utils/formatters.js";
 import useAuth from "../hooks/useAuth.js";
+import PageHeader from "../components/ui/PageHeader.jsx";
 
 const initialForm = {
   title: "",
@@ -148,13 +149,7 @@ export default function SavingsGoalsPage() {
 
   return (
     <div className="space-y-6">
-      <header className="border-b border-slate-200 pb-5">
-        <p className="text-sm font-semibold text-brand">Savings Goals</p>
-        <h1 className="mt-1 text-3xl font-bold">Goal Progress</h1>
-        <p className="mt-2 max-w-2xl text-sm leading-6 text-muted">
-          Create savings targets, update saved amounts, and monitor whether each goal is on track.
-        </p>
-      </header>
+      <PageHeader eyebrow="Your future fund" title="Goal Progress" description="Create savings targets, update saved amounts, and monitor whether each goal is on track." status={`${summary?.completedGoals || 0} completed`} />
 
       {error ? <p className="rounded-md bg-red-50 px-3 py-2 text-sm text-red-700">{error}</p> : null}
 
@@ -166,7 +161,7 @@ export default function SavingsGoalsPage() {
       </section>
 
       <section className="grid gap-6 xl:grid-cols-[380px_1fr]">
-        <form className="rounded-lg border border-slate-200 bg-white p-5 shadow-soft" onSubmit={handleSubmit}>
+        <form className="rounded-lg border border-[#e8dfce] bg-white p-5 shadow-soft" onSubmit={handleSubmit}>
           <div className="mb-4">
             <h2 className="text-lg font-bold">{editingId ? "Edit Goal" : "Create Goal"}</h2>
             <p className="mt-1 text-sm text-muted">Add a target amount, saved amount, deadline, and category.</p>
@@ -176,7 +171,7 @@ export default function SavingsGoalsPage() {
             <label className="block text-sm font-medium text-slate-700">
               Goal title
               <input
-                className="mt-2 w-full rounded-md border border-slate-300 px-3 py-2 outline-none focus:border-brand focus:ring-2 focus:ring-blue-100"
+                className="mt-2 w-full rounded-md border border-slate-300 px-3 py-2 outline-none focus:border-brand focus:ring-2 focus:ring-emerald-100"
                 name="title"
                 onChange={handleChange}
                 placeholder="Build emergency fund"
@@ -189,7 +184,7 @@ export default function SavingsGoalsPage() {
             <label className="block text-sm font-medium text-slate-700">
               Category
               <select
-                className="mt-2 w-full rounded-md border border-slate-300 px-3 py-2 outline-none focus:border-brand focus:ring-2 focus:ring-blue-100"
+                className="mt-2 w-full rounded-md border border-slate-300 px-3 py-2 outline-none focus:border-brand focus:ring-2 focus:ring-emerald-100"
                 name="category"
                 onChange={handleChange}
                 value={formData.category}
@@ -206,7 +201,7 @@ export default function SavingsGoalsPage() {
               <label className="block text-sm font-medium text-slate-700">
                 Target amount
                 <input
-                  className="mt-2 w-full rounded-md border border-slate-300 px-3 py-2 outline-none focus:border-brand focus:ring-2 focus:ring-blue-100"
+                  className="mt-2 w-full rounded-md border border-slate-300 px-3 py-2 outline-none focus:border-brand focus:ring-2 focus:ring-emerald-100"
                   min="1"
                   name="targetAmount"
                   onChange={handleChange}
@@ -219,7 +214,7 @@ export default function SavingsGoalsPage() {
               <label className="block text-sm font-medium text-slate-700">
                 Current saved
                 <input
-                  className="mt-2 w-full rounded-md border border-slate-300 px-3 py-2 outline-none focus:border-brand focus:ring-2 focus:ring-blue-100"
+                  className="mt-2 w-full rounded-md border border-slate-300 px-3 py-2 outline-none focus:border-brand focus:ring-2 focus:ring-emerald-100"
                   min="0"
                   name="currentAmount"
                   onChange={handleChange}
@@ -232,7 +227,7 @@ export default function SavingsGoalsPage() {
             <label className="block text-sm font-medium text-slate-700">
               Deadline
               <input
-                className="mt-2 w-full rounded-md border border-slate-300 px-3 py-2 outline-none focus:border-brand focus:ring-2 focus:ring-blue-100"
+                className="mt-2 w-full rounded-md border border-slate-300 px-3 py-2 outline-none focus:border-brand focus:ring-2 focus:ring-emerald-100"
                 name="deadline"
                 onChange={handleChange}
                 type="date"
@@ -243,7 +238,7 @@ export default function SavingsGoalsPage() {
             <label className="block text-sm font-medium text-slate-700">
               Lifecycle status
               <select
-                className="mt-2 w-full rounded-md border border-slate-300 px-3 py-2 outline-none focus:border-brand focus:ring-2 focus:ring-blue-100"
+                className="mt-2 w-full rounded-md border border-slate-300 px-3 py-2 outline-none focus:border-brand focus:ring-2 focus:ring-emerald-100"
                 name="status"
                 onChange={handleChange}
                 value={formData.status}
@@ -257,7 +252,7 @@ export default function SavingsGoalsPage() {
 
           <div className="mt-5 flex flex-wrap gap-2">
             <button
-              className="inline-flex items-center justify-center gap-2 rounded-md bg-brand px-4 py-2 text-sm font-semibold text-white shadow-soft hover:bg-blue-700 disabled:opacity-70"
+              className="inline-flex items-center justify-center gap-2 rounded-md bg-brand px-4 py-2 text-sm font-semibold text-white shadow-soft hover:bg-[#173d2e] disabled:opacity-70"
               disabled={submitting}
               type="submit"
             >
@@ -266,7 +261,7 @@ export default function SavingsGoalsPage() {
             </button>
             {editingId ? (
               <button
-                className="rounded-md border border-slate-200 px-4 py-2 text-sm font-semibold text-slate-700 hover:bg-slate-50"
+                className="rounded-md border border-[#e1d7c3] bg-white px-4 py-2 text-sm font-semibold text-slate-700 hover:bg-[#f7f1e2]"
                 onClick={resetForm}
                 type="button"
               >
@@ -277,7 +272,7 @@ export default function SavingsGoalsPage() {
         </form>
 
         <div className="grid gap-6 2xl:grid-cols-[1fr_360px]">
-          <section className="rounded-lg border border-slate-200 bg-white p-5 shadow-soft">
+          <section className="rounded-lg border border-[#e8dfce] bg-white p-5 shadow-soft">
             <div className="mb-5">
               <h2 className="text-lg font-bold">Goal List</h2>
               <p className="mt-1 text-sm text-muted">Select a goal to view details and update progress.</p>
@@ -290,7 +285,7 @@ export default function SavingsGoalsPage() {
                 {goals.map((goal) => (
                   <article
                     className={`rounded-lg border p-4 ${
-                      selectedGoal?.id === goal.id ? "border-brand bg-blue-50/40" : "border-slate-200"
+                      selectedGoal?.id === goal.id ? "border-brand bg-[#e6f3eb]/60" : "border-[#e8dfce]"
                     }`}
                     key={goal.id}
                   >
@@ -338,7 +333,7 @@ export default function SavingsGoalsPage() {
                 ))}
               </div>
             ) : (
-              <div className="rounded-lg border border-dashed border-slate-300 bg-slate-50 px-4 py-10 text-center">
+              <div className="rounded-lg border border-dashed border-slate-300 bg-[#f6fbf7] px-4 py-10 text-center">
                 <p className="font-semibold text-slate-800">No savings goals yet</p>
                 <p className="mt-2 text-sm text-muted">Create your first savings goal from the form.</p>
               </div>
@@ -360,7 +355,7 @@ export default function SavingsGoalsPage() {
 
 function SummaryTile({ icon: Icon, label, value }) {
   return (
-    <article className="rounded-lg border border-slate-200 bg-white p-5 shadow-soft">
+    <article className="rounded-lg border border-[#e8dfce] bg-white p-5 shadow-soft">
       <div className="flex items-center justify-between gap-4">
         <p className="text-sm font-medium text-muted">{label}</p>
         <Icon className="h-5 w-5 text-brand" aria-hidden="true" />
@@ -372,9 +367,9 @@ function SummaryTile({ icon: Icon, label, value }) {
 
 function StatusBadge({ status }) {
   const className = {
-    "On track": "bg-teal-50 text-mint",
+    "On track": "bg-[#e7f4ed] text-mint",
     Behind: "bg-amber-50 text-amber",
-    Completed: "bg-blue-50 text-brand",
+    Completed: "bg-[#e6f3eb] text-brand",
     Paused: "bg-slate-100 text-slate-700"
   }[status];
 
@@ -384,9 +379,9 @@ function StatusBadge({ status }) {
 function GoalDetails({ currency, goal, onProgressSubmit, progressAmount, setProgressAmount }) {
   if (!goal) {
     return (
-      <aside className="rounded-lg border border-slate-200 bg-white p-5 shadow-soft">
+      <aside className="rounded-lg border border-[#e8dfce] bg-white p-5 shadow-soft">
         <h2 className="text-lg font-bold">Goal Details</h2>
-        <div className="mt-4 rounded-lg border border-dashed border-slate-300 bg-slate-50 px-4 py-10 text-center">
+        <div className="mt-4 rounded-lg border border-dashed border-slate-300 bg-[#f6fbf7] px-4 py-10 text-center">
           <p className="font-semibold text-slate-800">Select a goal</p>
           <p className="mt-2 text-sm text-muted">Progress details will appear here.</p>
         </div>
@@ -395,7 +390,7 @@ function GoalDetails({ currency, goal, onProgressSubmit, progressAmount, setProg
   }
 
   return (
-    <aside className="rounded-lg border border-slate-200 bg-white p-5 shadow-soft">
+    <aside className="rounded-lg border border-[#e8dfce] bg-white p-5 shadow-soft">
       <div className="flex items-start justify-between gap-3">
         <div>
           <h2 className="text-lg font-bold">Goal Details</h2>
@@ -420,7 +415,7 @@ function GoalDetails({ currency, goal, onProgressSubmit, progressAmount, setProg
         <label className="block text-sm font-medium text-slate-700">
           Update saved amount
           <input
-            className="mt-2 w-full rounded-md border border-slate-300 px-3 py-2 outline-none focus:border-brand focus:ring-2 focus:ring-blue-100"
+            className="mt-2 w-full rounded-md border border-slate-300 px-3 py-2 outline-none focus:border-brand focus:ring-2 focus:ring-emerald-100"
             min="0"
             onChange={(event) => setProgressAmount(event.target.value)}
             type="number"
@@ -428,7 +423,7 @@ function GoalDetails({ currency, goal, onProgressSubmit, progressAmount, setProg
           />
         </label>
         <button
-          className="mt-4 w-full rounded-md bg-brand px-4 py-2 text-sm font-semibold text-white shadow-soft hover:bg-blue-700"
+          className="mt-4 w-full rounded-md bg-brand px-4 py-2 text-sm font-semibold text-white shadow-soft hover:bg-[#173d2e]"
           type="submit"
         >
           Update Progress

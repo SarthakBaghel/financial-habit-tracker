@@ -2,6 +2,7 @@ import { useEffect, useMemo, useState } from "react";
 import { AlertCircle, BarChart3, CheckCircle2, MessageSquare, UsersRound } from "lucide-react";
 import api from "../services/api.js";
 import { formatDate } from "../utils/formatters.js";
+import PageHeader from "../components/ui/PageHeader.jsx";
 
 const tabs = [
   { id: "overview", label: "Overview" },
@@ -67,17 +68,11 @@ export default function AdminPage() {
 
   return (
     <div className="space-y-6">
-      <header className="border-b border-slate-200 pb-5">
-        <p className="text-sm font-semibold text-brand">Admin</p>
-        <h1 className="mt-1 text-3xl font-bold">Platform Monitor</h1>
-        <p className="mt-2 max-w-2xl text-sm leading-6 text-muted">
-          Monitor users, platform activity, habit consistency, savings goal progress, and feedback issues.
-        </p>
-      </header>
+      <PageHeader eyebrow="Platform operations" title="Platform Monitor" description="Monitor users, platform activity, habit consistency, savings goal progress, and feedback issues." status="Admin view" />
 
       {error ? <p className="rounded-md bg-red-50 px-3 py-2 text-sm text-red-700">{error}</p> : null}
 
-      <div className="flex flex-wrap gap-2 border-b border-slate-200">
+      <div className="flex flex-wrap gap-2 border-b border-[#e8dfce]">
         {tabs.map((tab) => (
           <button
             className={`border-b-2 px-4 py-3 text-sm font-semibold ${
@@ -106,7 +101,7 @@ export default function AdminPage() {
             {metricCards.map((metric) => {
               const Icon = metric.icon;
               return (
-                <article className="rounded-lg border border-slate-200 bg-white p-5 shadow-soft" key={metric.label}>
+                <article className="rounded-lg border border-[#e8dfce] bg-white p-5 shadow-soft" key={metric.label}>
                   <div className="flex items-center justify-between gap-4">
                     <p className="text-sm font-medium text-muted">{metric.label}</p>
                     <Icon className="h-5 w-5 text-brand" aria-hidden="true" />
@@ -123,7 +118,7 @@ export default function AdminPage() {
             <InsightTile label="Feedback Items" value={summary?.totalFeedback || 0} />
           </section>
 
-          <section className="rounded-lg border border-slate-200 bg-white p-5 shadow-soft">
+          <section className="rounded-lg border border-[#e8dfce] bg-white p-5 shadow-soft">
             <h2 className="text-lg font-bold">Platform Usage Analytics</h2>
             <div className="mt-4 grid gap-3 sm:grid-cols-2 xl:grid-cols-5">
               {Object.entries(summary?.platformUsage || {}).map(([key, value]) => (
@@ -152,7 +147,7 @@ export default function AdminPage() {
 
 function InsightTile({ label, value }) {
   return (
-    <article className="rounded-lg border border-slate-200 bg-white p-5 shadow-soft">
+    <article className="rounded-lg border border-[#e8dfce] bg-white p-5 shadow-soft">
       <p className="text-sm font-medium text-muted">{label}</p>
       <p className="mt-3 text-2xl font-bold">{value}</p>
     </article>
@@ -161,7 +156,7 @@ function InsightTile({ label, value }) {
 
 function UsersTable({ users }) {
   return (
-    <section className="rounded-lg border border-slate-200 bg-white p-5 shadow-soft">
+    <section className="rounded-lg border border-[#e8dfce] bg-white p-5 shadow-soft">
       <div className="mb-5">
         <h2 className="text-lg font-bold">Users List</h2>
         <p className="mt-1 text-sm text-muted">Account roles and activity counts across the platform.</p>
@@ -171,7 +166,7 @@ function UsersTable({ users }) {
         <div className="overflow-x-auto">
           <table className="w-full min-w-[820px] text-left text-sm">
             <thead>
-              <tr className="border-b border-slate-200 text-xs uppercase text-muted">
+              <tr className="border-b border-[#e8dfce] text-xs uppercase text-muted">
                 <th className="py-3 font-semibold">User</th>
                 <th className="py-3 font-semibold">Role</th>
                 <th className="py-3 font-semibold">Joined</th>
@@ -210,7 +205,7 @@ function UsersTable({ users }) {
 
 function FeedbackList({ feedback, onStatusChange, statuses }) {
   return (
-    <section className="rounded-lg border border-slate-200 bg-white p-5 shadow-soft">
+    <section className="rounded-lg border border-[#e8dfce] bg-white p-5 shadow-soft">
       <div className="mb-5">
         <h2 className="text-lg font-bold">Feedback & Issues</h2>
         <p className="mt-1 text-sm text-muted">Review and update user-submitted feedback status.</p>
@@ -233,7 +228,7 @@ function FeedbackList({ feedback, onStatusChange, statuses }) {
                   <p className="mt-3 text-sm leading-6 text-slate-700">{item.message}</p>
                 </div>
                 <select
-                  className="rounded-md border border-slate-300 px-3 py-2 text-sm outline-none focus:border-brand focus:ring-2 focus:ring-blue-100"
+                  className="rounded-md border border-slate-300 px-3 py-2 text-sm outline-none focus:border-brand focus:ring-2 focus:ring-emerald-100"
                   onChange={(event) => onStatusChange(item.id, event.target.value)}
                   value={item.status}
                 >
@@ -256,7 +251,7 @@ function FeedbackList({ feedback, onStatusChange, statuses }) {
 
 function EmptyAdminState({ message }) {
   return (
-    <div className="rounded-lg border border-dashed border-slate-300 bg-slate-50 px-4 py-10 text-center">
+    <div className="rounded-lg border border-dashed border-slate-300 bg-[#f6fbf7] px-4 py-10 text-center">
       <p className="font-semibold text-slate-800">Nothing to show</p>
       <p className="mt-2 text-sm text-muted">{message}</p>
     </div>

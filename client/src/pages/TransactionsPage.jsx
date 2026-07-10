@@ -3,6 +3,7 @@ import { Edit2, Plus, Trash2 } from "lucide-react";
 import api from "../services/api.js";
 import { formatCurrency, formatDate } from "../utils/formatters.js";
 import useAuth from "../hooks/useAuth.js";
+import PageHeader from "../components/ui/PageHeader.jsx";
 
 const expenseCategories = [
   "Food",
@@ -146,13 +147,7 @@ export default function TransactionsPage() {
 
   return (
     <div className="space-y-6">
-      <header className="border-b border-slate-200 pb-5">
-        <p className="text-sm font-semibold text-brand">Income & Expense Tracking</p>
-        <h1 className="mt-1 text-3xl font-bold">Transactions</h1>
-        <p className="mt-2 max-w-2xl text-sm leading-6 text-muted">
-          Add income and expenses manually, filter your records, and review monthly savings performance.
-        </p>
-      </header>
+      <PageHeader eyebrow="Your money flow" title="Transactions" description="Add income and expenses manually, filter your records, and review monthly savings performance." status="This month" />
 
       {error ? <p className="rounded-md bg-red-50 px-3 py-2 text-sm text-red-700">{error}</p> : null}
 
@@ -164,7 +159,7 @@ export default function TransactionsPage() {
       </section>
 
       <section className="grid gap-6 xl:grid-cols-[380px_1fr]">
-        <form className="rounded-lg border border-slate-200 bg-white p-5 shadow-soft" onSubmit={handleSubmit}>
+        <form className="rounded-lg border border-[#e8dfce] bg-white p-5 shadow-soft" onSubmit={handleSubmit}>
           <div className="mb-4">
             <h2 className="text-lg font-bold">{editingId ? "Edit Transaction" : "Add Transaction"}</h2>
             <p className="mt-1 text-sm text-muted">Record income or spending with a category and date.</p>
@@ -174,7 +169,7 @@ export default function TransactionsPage() {
             <label className="block text-sm font-medium text-slate-700">
               Type
               <select
-                className="mt-2 w-full rounded-md border border-slate-300 px-3 py-2 outline-none focus:border-brand focus:ring-2 focus:ring-blue-100"
+                className="mt-2 w-full rounded-md border border-slate-300 px-3 py-2 outline-none focus:border-brand focus:ring-2 focus:ring-emerald-100"
                 name="type"
                 onChange={handleFormChange}
                 value={formData.type}
@@ -187,7 +182,7 @@ export default function TransactionsPage() {
             <label className="block text-sm font-medium text-slate-700">
               Category
               <select
-                className="mt-2 w-full rounded-md border border-slate-300 px-3 py-2 outline-none focus:border-brand focus:ring-2 focus:ring-blue-100"
+                className="mt-2 w-full rounded-md border border-slate-300 px-3 py-2 outline-none focus:border-brand focus:ring-2 focus:ring-emerald-100"
                 name="category"
                 onChange={handleFormChange}
                 value={formData.category}
@@ -203,7 +198,7 @@ export default function TransactionsPage() {
             <label className="block text-sm font-medium text-slate-700">
               Amount
               <input
-                className="mt-2 w-full rounded-md border border-slate-300 px-3 py-2 outline-none focus:border-brand focus:ring-2 focus:ring-blue-100"
+                className="mt-2 w-full rounded-md border border-slate-300 px-3 py-2 outline-none focus:border-brand focus:ring-2 focus:ring-emerald-100"
                 min="0"
                 name="amount"
                 onChange={handleFormChange}
@@ -216,7 +211,7 @@ export default function TransactionsPage() {
             <label className="block text-sm font-medium text-slate-700">
               Date
               <input
-                className="mt-2 w-full rounded-md border border-slate-300 px-3 py-2 outline-none focus:border-brand focus:ring-2 focus:ring-blue-100"
+                className="mt-2 w-full rounded-md border border-slate-300 px-3 py-2 outline-none focus:border-brand focus:ring-2 focus:ring-emerald-100"
                 name="date"
                 onChange={handleFormChange}
                 required
@@ -228,7 +223,7 @@ export default function TransactionsPage() {
             <label className="block text-sm font-medium text-slate-700">
               Note
               <textarea
-                className="mt-2 min-h-24 w-full rounded-md border border-slate-300 px-3 py-2 outline-none focus:border-brand focus:ring-2 focus:ring-blue-100"
+                className="mt-2 min-h-24 w-full rounded-md border border-slate-300 px-3 py-2 outline-none focus:border-brand focus:ring-2 focus:ring-emerald-100"
                 maxLength={300}
                 name="note"
                 onChange={handleFormChange}
@@ -239,7 +234,7 @@ export default function TransactionsPage() {
 
           <div className="mt-5 flex flex-wrap gap-2">
             <button
-              className="inline-flex items-center justify-center gap-2 rounded-md bg-brand px-4 py-2 text-sm font-semibold text-white shadow-soft hover:bg-blue-700 disabled:opacity-70"
+              className="inline-flex items-center justify-center gap-2 rounded-md bg-brand px-4 py-2 text-sm font-semibold text-white shadow-soft hover:bg-[#173d2e] disabled:opacity-70"
               disabled={submitting}
               type="submit"
             >
@@ -248,7 +243,7 @@ export default function TransactionsPage() {
             </button>
             {editingId ? (
               <button
-                className="rounded-md border border-slate-200 px-4 py-2 text-sm font-semibold text-slate-700 hover:bg-slate-50"
+                className="rounded-md border border-[#e1d7c3] bg-white px-4 py-2 text-sm font-semibold text-slate-700 hover:bg-[#f7f1e2]"
                 onClick={resetForm}
                 type="button"
               >
@@ -258,7 +253,7 @@ export default function TransactionsPage() {
           </div>
         </form>
 
-        <section className="rounded-lg border border-slate-200 bg-white p-5 shadow-soft">
+        <section className="rounded-lg border border-[#e8dfce] bg-white p-5 shadow-soft">
           <div className="mb-5 flex flex-col gap-4 lg:flex-row lg:items-end lg:justify-between">
             <div>
               <h2 className="text-lg font-bold">Transaction History</h2>
@@ -266,14 +261,14 @@ export default function TransactionsPage() {
             </div>
             <div className="grid gap-2 sm:grid-cols-3">
               <input
-                className="rounded-md border border-slate-300 px-3 py-2 text-sm outline-none focus:border-brand focus:ring-2 focus:ring-blue-100"
+                className="rounded-md border border-slate-300 px-3 py-2 text-sm outline-none focus:border-brand focus:ring-2 focus:ring-emerald-100"
                 name="month"
                 onChange={handleFilterChange}
                 type="month"
                 value={filters.month}
               />
               <select
-                className="rounded-md border border-slate-300 px-3 py-2 text-sm outline-none focus:border-brand focus:ring-2 focus:ring-blue-100"
+                className="rounded-md border border-slate-300 px-3 py-2 text-sm outline-none focus:border-brand focus:ring-2 focus:ring-emerald-100"
                 name="type"
                 onChange={handleFilterChange}
                 value={filters.type}
@@ -283,7 +278,7 @@ export default function TransactionsPage() {
                 <option value="expense">Expense</option>
               </select>
               <select
-                className="rounded-md border border-slate-300 px-3 py-2 text-sm outline-none focus:border-brand focus:ring-2 focus:ring-blue-100"
+                className="rounded-md border border-slate-300 px-3 py-2 text-sm outline-none focus:border-brand focus:ring-2 focus:ring-emerald-100"
                 name="category"
                 onChange={handleFilterChange}
                 value={filters.category}
@@ -304,7 +299,7 @@ export default function TransactionsPage() {
             <div className="overflow-x-auto">
               <table className="w-full min-w-[720px] text-left text-sm">
                 <thead>
-                  <tr className="border-b border-slate-200 text-xs uppercase text-muted">
+                  <tr className="border-b border-[#e8dfce] text-xs uppercase text-muted">
                     <th className="py-3 font-semibold">Date</th>
                     <th className="py-3 font-semibold">Type</th>
                     <th className="py-3 font-semibold">Category</th>
@@ -326,7 +321,7 @@ export default function TransactionsPage() {
                       <td className="py-3">
                         <div className="flex justify-end gap-2">
                           <button
-                            className="rounded-md border border-slate-200 p-2 text-slate-700 hover:bg-slate-50"
+                            className="rounded-md border border-slate-200 p-2 text-slate-700 hover:bg-[#f7f1e2]"
                             onClick={() => handleEdit(transaction)}
                             title="Edit transaction"
                             type="button"
@@ -349,7 +344,7 @@ export default function TransactionsPage() {
               </table>
             </div>
           ) : (
-            <div className="rounded-lg border border-dashed border-slate-300 bg-slate-50 px-4 py-10 text-center">
+            <div className="rounded-lg border border-dashed border-slate-300 bg-[#f6fbf7] px-4 py-10 text-center">
               <p className="font-semibold text-slate-800">No transactions match these filters</p>
               <p className="mt-2 text-sm text-muted">Add your first income or expense record from the form.</p>
             </div>
@@ -362,7 +357,7 @@ export default function TransactionsPage() {
 
 function SummaryTile({ label, value }) {
   return (
-    <article className="rounded-lg border border-slate-200 bg-white p-5 shadow-soft">
+    <article className="rounded-lg border border-[#e8dfce] bg-white p-5 shadow-soft">
       <p className="text-sm font-medium text-muted">{label}</p>
       <p className="mt-3 text-2xl font-bold">{value}</p>
     </article>

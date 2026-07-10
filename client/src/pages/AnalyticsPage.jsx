@@ -16,6 +16,7 @@ import { BarChart3, Edit2, Lightbulb, Plus, Trash2, TrendingUp, WalletCards } fr
 import ChartPanel from "../components/dashboard/ChartPanel.jsx";
 import EmptyState from "../components/dashboard/EmptyState.jsx";
 import SummaryCard from "../components/dashboard/SummaryCard.jsx";
+import PageHeader from "../components/ui/PageHeader.jsx";
 import api from "../services/api.js";
 import { formatCurrency, formatDate, formatPercent } from "../utils/formatters.js";
 
@@ -190,13 +191,7 @@ export default function AnalyticsPage() {
 
   return (
     <div className="space-y-6">
-      <header className="border-b border-slate-200 pb-5">
-        <p className="text-sm font-semibold text-brand">Wealth Growth & Analytics</p>
-        <h1 className="mt-1 text-3xl font-bold">Wealth Analytics</h1>
-        <p className="mt-2 max-w-2xl text-sm leading-6 text-muted">
-          Track assets manually, monitor net worth, compare income against expenses, and review habit and goal progress.
-        </p>
-      </header>
+      <PageHeader eyebrow="Your bigger picture" title="Wealth Analytics" description="Track assets manually, monitor net worth, compare income against expenses, and review habit and goal progress." status="Long-term view" />
 
       {error ? <p className="rounded-md bg-red-50 px-3 py-2 text-sm text-red-700">{error}</p> : null}
 
@@ -208,7 +203,7 @@ export default function AnalyticsPage() {
 
       <section className="grid gap-6 xl:grid-cols-[380px_1fr]">
         <div className="space-y-6">
-          <form className="rounded-lg border border-slate-200 bg-white p-5 shadow-soft" onSubmit={handleAssetSubmit}>
+          <form className="rounded-lg border border-[#e8dfce] bg-white p-5 shadow-soft" onSubmit={handleAssetSubmit}>
             <div className="mb-4">
               <h2 className="text-lg font-bold">{editingAssetId ? "Edit Asset Entry" : "Add Asset Entry"}</h2>
               <p className="mt-1 text-sm text-muted">Record savings, investments, or asset values manually.</p>
@@ -218,7 +213,7 @@ export default function AnalyticsPage() {
               <label className="block text-sm font-medium text-slate-700">
                 Name
                 <input
-                  className="mt-2 w-full rounded-md border border-slate-300 px-3 py-2 outline-none focus:border-brand focus:ring-2 focus:ring-blue-100"
+                  className="mt-2 w-full rounded-md border border-slate-300 px-3 py-2 outline-none focus:border-brand focus:ring-2 focus:ring-emerald-100"
                   name="name"
                   onChange={handleAssetChange}
                   placeholder="Mutual fund portfolio"
@@ -231,7 +226,7 @@ export default function AnalyticsPage() {
               <label className="block text-sm font-medium text-slate-700">
                 Type
                 <select
-                  className="mt-2 w-full rounded-md border border-slate-300 px-3 py-2 outline-none focus:border-brand focus:ring-2 focus:ring-blue-100"
+                  className="mt-2 w-full rounded-md border border-slate-300 px-3 py-2 outline-none focus:border-brand focus:ring-2 focus:ring-emerald-100"
                   name="type"
                   onChange={handleAssetChange}
                   value={assetForm.type}
@@ -245,7 +240,7 @@ export default function AnalyticsPage() {
               <label className="block text-sm font-medium text-slate-700">
                 Value
                 <input
-                  className="mt-2 w-full rounded-md border border-slate-300 px-3 py-2 outline-none focus:border-brand focus:ring-2 focus:ring-blue-100"
+                  className="mt-2 w-full rounded-md border border-slate-300 px-3 py-2 outline-none focus:border-brand focus:ring-2 focus:ring-emerald-100"
                   min="0"
                   name="value"
                   onChange={handleAssetChange}
@@ -258,7 +253,7 @@ export default function AnalyticsPage() {
               <label className="block text-sm font-medium text-slate-700">
                 Valuation date
                 <input
-                  className="mt-2 w-full rounded-md border border-slate-300 px-3 py-2 outline-none focus:border-brand focus:ring-2 focus:ring-blue-100"
+                  className="mt-2 w-full rounded-md border border-slate-300 px-3 py-2 outline-none focus:border-brand focus:ring-2 focus:ring-emerald-100"
                   name="date"
                   onChange={handleAssetChange}
                   required
@@ -270,7 +265,7 @@ export default function AnalyticsPage() {
 
             <div className="mt-5 flex flex-wrap gap-2">
               <button
-                className="inline-flex items-center justify-center gap-2 rounded-md bg-brand px-4 py-2 text-sm font-semibold text-white shadow-soft hover:bg-blue-700 disabled:opacity-70"
+                className="inline-flex items-center justify-center gap-2 rounded-md bg-brand px-4 py-2 text-sm font-semibold text-white shadow-soft hover:bg-[#173d2e] disabled:opacity-70"
                 disabled={submitting}
                 type="submit"
               >
@@ -279,7 +274,7 @@ export default function AnalyticsPage() {
               </button>
               {editingAssetId ? (
                 <button
-                  className="rounded-md border border-slate-200 px-4 py-2 text-sm font-semibold text-slate-700 hover:bg-slate-50"
+                  className="rounded-md border border-[#e1d7c3] bg-white px-4 py-2 text-sm font-semibold text-slate-700 hover:bg-[#f7f1e2]"
                   onClick={resetAssetForm}
                   type="button"
                 >
@@ -289,7 +284,7 @@ export default function AnalyticsPage() {
             </div>
           </form>
 
-          <section className="rounded-lg border border-slate-200 bg-white p-5 shadow-soft">
+          <section className="rounded-lg border border-[#e8dfce] bg-white p-5 shadow-soft">
             <h2 className="text-lg font-bold">Simple Insights</h2>
             <div className="mt-4 space-y-3">
               {analytics.insights.map((insight) => (
@@ -301,7 +296,7 @@ export default function AnalyticsPage() {
           </section>
         </div>
 
-        <section className="rounded-lg border border-slate-200 bg-white p-5 shadow-soft">
+        <section className="rounded-lg border border-[#e8dfce] bg-white p-5 shadow-soft">
           <div className="mb-5">
             <h2 className="text-lg font-bold">Tracked Assets</h2>
             <p className="mt-1 text-sm text-muted">Latest values used for asset and net worth calculations.</p>
@@ -311,7 +306,7 @@ export default function AnalyticsPage() {
             <div className="overflow-x-auto">
               <table className="w-full min-w-[680px] text-left text-sm">
                 <thead>
-                  <tr className="border-b border-slate-200 text-xs uppercase text-muted">
+                  <tr className="border-b border-[#e8dfce] text-xs uppercase text-muted">
                     <th className="py-3 font-semibold">Name</th>
                     <th className="py-3 font-semibold">Type</th>
                     <th className="py-3 font-semibold">Date</th>
@@ -329,7 +324,7 @@ export default function AnalyticsPage() {
                       <td className="py-3">
                         <div className="flex justify-end gap-2">
                           <button
-                            className="rounded-md border border-slate-200 p-2 text-slate-700 hover:bg-slate-50"
+                            className="rounded-md border border-slate-200 p-2 text-slate-700 hover:bg-[#f7f1e2]"
                             onClick={() => editAsset(asset)}
                             title="Edit asset"
                             type="button"
@@ -352,7 +347,7 @@ export default function AnalyticsPage() {
               </table>
             </div>
           ) : (
-            <div className="rounded-lg border border-dashed border-slate-300 bg-slate-50 px-4 py-10 text-center">
+            <div className="rounded-lg border border-dashed border-slate-300 bg-[#f6fbf7] px-4 py-10 text-center">
               <p className="font-semibold text-slate-800">No assets tracked yet</p>
               <p className="mt-2 text-sm text-muted">Add savings, investments, or assets from the form.</p>
             </div>
@@ -367,15 +362,15 @@ export default function AnalyticsPage() {
               <AreaChart data={analytics.charts.netWorthTrend}>
                 <defs>
                   <linearGradient id="netWorthGradient" x1="0" x2="0" y1="0" y2="1">
-                    <stop offset="5%" stopColor="#2563eb" stopOpacity={0.35} />
-                    <stop offset="95%" stopColor="#2563eb" stopOpacity={0.04} />
+                    <stop offset="5%" stopColor="#1e4d3a" stopOpacity={0.32} />
+                    <stop offset="95%" stopColor="#1e4d3a" stopOpacity={0.04} />
                   </linearGradient>
                 </defs>
-                <CartesianGrid stroke="#e2e8f0" strokeDasharray="3 3" />
+                <CartesianGrid stroke="#e8dfce" strokeDasharray="3 3" />
                 <XAxis dataKey="month" tickLine={false} />
                 <YAxis tickFormatter={(value) => formatCurrency(value, currency)} tickLine={false} width={88} />
                 <Tooltip formatter={(value) => formatCurrency(value, currency)} />
-                <Area dataKey="netWorth" fill="url(#netWorthGradient)" stroke="#2563eb" strokeWidth={2} type="monotone" />
+                <Area dataKey="netWorth" fill="url(#netWorthGradient)" stroke="#1e4d3a" strokeWidth={2} type="monotone" />
               </AreaChart>
             </ResponsiveContainer>
           ) : (
@@ -387,12 +382,12 @@ export default function AnalyticsPage() {
           {hasMonthlyActivity ? (
             <ResponsiveContainer height="100%" width="100%">
               <BarChart data={analytics.charts.monthlyActivity}>
-                <CartesianGrid stroke="#e2e8f0" strokeDasharray="3 3" />
+                <CartesianGrid stroke="#e8dfce" strokeDasharray="3 3" />
                 <XAxis dataKey="month" tickLine={false} />
                 <YAxis tickFormatter={(value) => formatCurrency(value, currency)} tickLine={false} width={88} />
                 <Tooltip formatter={(value) => formatCurrency(value, currency)} />
-                <Bar dataKey="income" fill="#0f766e" radius={[6, 6, 0, 0]} />
-                <Bar dataKey="expenses" fill="#b45309" radius={[6, 6, 0, 0]} />
+                <Bar dataKey="income" fill="#1e4d3a" radius={[6, 6, 0, 0]} />
+                <Bar dataKey="expenses" fill="#c45f4b" radius={[6, 6, 0, 0]} />
               </BarChart>
             </ResponsiveContainer>
           ) : (
@@ -406,11 +401,11 @@ export default function AnalyticsPage() {
           {hasSavingsRateTrend ? (
             <ResponsiveContainer height="100%" width="100%">
               <LineChart data={analytics.charts.savingsRateTrend}>
-                <CartesianGrid stroke="#e2e8f0" strokeDasharray="3 3" />
+                <CartesianGrid stroke="#e8dfce" strokeDasharray="3 3" />
                 <XAxis dataKey="month" tickLine={false} />
                 <YAxis tickFormatter={(value) => `${value}%`} tickLine={false} width={48} />
                 <Tooltip formatter={(value) => `${value}%`} />
-                <Line dataKey="savingsRate" dot={{ r: 4 }} stroke="#2563eb" strokeWidth={2} type="monotone" />
+                <Line dataKey="savingsRate" dot={{ r: 4 }} stroke="#0d5d86" strokeWidth={2} type="monotone" />
               </LineChart>
             </ResponsiveContainer>
           ) : (
@@ -422,11 +417,11 @@ export default function AnalyticsPage() {
           {hasGoalProgress ? (
             <ResponsiveContainer height="100%" width="100%">
               <BarChart data={analytics.charts.goalProgress} layout="vertical" margin={{ left: 24 }}>
-                <CartesianGrid stroke="#e2e8f0" strokeDasharray="3 3" />
+                <CartesianGrid stroke="#e8dfce" strokeDasharray="3 3" />
                 <XAxis domain={[0, 100]} tickFormatter={(value) => `${value}%`} type="number" />
                 <YAxis dataKey="title" tickLine={false} type="category" width={96} />
                 <Tooltip formatter={(value) => `${value}%`} />
-                <Bar dataKey="progress" fill="#0f766e" radius={[0, 6, 6, 0]} />
+                <Bar dataKey="progress" fill="#f4c95d" radius={[0, 6, 6, 0]} />
               </BarChart>
             </ResponsiveContainer>
           ) : (
@@ -438,11 +433,11 @@ export default function AnalyticsPage() {
           {hasHabitCompletion ? (
             <ResponsiveContainer height="100%" width="100%">
               <BarChart data={analytics.charts.habitCompletion}>
-                <CartesianGrid stroke="#e2e8f0" strokeDasharray="3 3" />
+                <CartesianGrid stroke="#e8dfce" strokeDasharray="3 3" />
                 <XAxis dataKey="month" tickLine={false} />
                 <YAxis domain={[0, 100]} tickFormatter={(value) => `${value}%`} tickLine={false} width={48} />
                 <Tooltip formatter={(value) => `${value}%`} />
-                <Bar dataKey="completionRate" fill="#7c3aed" radius={[6, 6, 0, 0]} />
+                <Bar dataKey="completionRate" fill="#2f7d5d" radius={[6, 6, 0, 0]} />
               </BarChart>
             </ResponsiveContainer>
           ) : (

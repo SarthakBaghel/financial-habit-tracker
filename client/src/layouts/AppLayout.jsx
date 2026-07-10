@@ -31,14 +31,14 @@ export default function AppLayout({ children }) {
       >
         Skip to content
       </a>
-      <header className="sticky top-0 z-30 border-b border-slate-200 bg-white/95 px-4 py-3 backdrop-blur lg:hidden">
+      <header className="sticky top-0 z-30 border-b border-[#e8dfce] bg-[#fffdf8]/95 px-4 py-3 backdrop-blur lg:hidden">
         <div className="flex items-center justify-between gap-4">
-          <div>
-            <p className="text-sm font-semibold text-brand">WealthTrack</p>
-            <p className="text-xs text-muted">{user?.name}</p>
+          <div className="flex items-center gap-2">
+            <span className="grid h-8 w-8 place-items-center rounded-md bg-brand text-xs font-extrabold text-white">W</span>
+            <div><p className="text-sm font-bold text-ink">WealthTrack</p><p className="text-xs text-muted">{user?.name}</p></div>
           </div>
           <button
-            className="rounded-md border border-slate-200 p-2 text-slate-700"
+            className="rounded-md border border-[#e1d7c3] bg-white p-2 text-slate-700"
             onClick={() => setMobileOpen((open) => !open)}
             type="button"
             aria-label={mobileOpen ? "Close navigation menu" : "Open navigation menu"}
@@ -58,15 +58,14 @@ export default function AppLayout({ children }) {
       ) : null}
 
       <aside
-        className={`fixed inset-y-0 left-0 z-40 flex w-72 max-w-[85vw] flex-col border-r border-slate-200 bg-white px-4 py-5 transition-transform lg:w-64 lg:translate-x-0 ${
+        className={`fixed inset-y-0 left-0 z-40 flex w-72 max-w-[85vw] flex-col border-r border-[#e8dfce] bg-[#fffdf8] px-4 py-5 transition-transform lg:w-64 lg:translate-x-0 ${
           mobileOpen ? "translate-x-0" : "-translate-x-full"
         } lg:flex`}
       >
         <div className="mb-8 flex items-start justify-between gap-4 px-2">
-          <div>
-            <p className="text-sm font-semibold text-brand">WealthTrack</p>
-            <h1 className="mt-1 text-xl font-bold leading-tight">Financial Habit Builder</h1>
-            <p className="mt-3 text-sm text-muted">{user?.name}</p>
+          <div className="flex items-start gap-3">
+            <span className="grid h-10 w-10 shrink-0 place-items-center rounded-md bg-brand text-sm font-extrabold text-white">W</span>
+            <div><p className="text-base font-bold text-ink">WealthTrack</p><p className="mt-1 text-sm font-medium text-muted">Financial Habit Builder</p><p className="mt-3 text-sm text-muted">{user?.name}</p></div>
           </div>
           <button
             className="rounded-md border border-slate-200 p-2 text-slate-700 lg:hidden"
@@ -82,8 +81,12 @@ export default function AppLayout({ children }) {
             <NavigationLink item={item} key={item.label} onNavigate={() => setMobileOpen(false)} />
           ))}
         </nav>
+        <div className="mt-5 rounded-md border border-[#d8e7dc] bg-[#edf7ef] p-3">
+          <p className="text-xs font-bold uppercase tracking-wide text-brand">Financial rhythm</p>
+          <p className="mt-1 text-sm font-semibold text-ink">Keep one money habit moving today.</p>
+        </div>
         <button
-          className="mt-5 flex items-center justify-center gap-2 rounded-md border border-slate-200 px-3 py-2 text-sm font-semibold text-slate-700 hover:bg-slate-100"
+          className="mt-3 flex items-center justify-center gap-2 rounded-md border border-[#e1d7c3] bg-white px-3 py-2 text-sm font-semibold text-slate-700 hover:bg-[#f7f1e2]"
           onClick={handleLogout}
           type="button"
           aria-label="Logout"
@@ -106,7 +109,7 @@ function NavigationLink({ item, onNavigate }) {
     <NavLink
       className={({ isActive }) =>
         `flex w-full items-center gap-3 rounded-md px-3 py-2 text-left text-sm font-medium ${
-          isActive ? "bg-blue-50 text-brand" : "text-slate-700 hover:bg-slate-100"
+          isActive ? "bg-[#e6f3eb] text-brand" : "text-slate-700 hover:bg-[#f7f1e2]"
         }`
       }
       onClick={onNavigate}

@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 
 export default function GoalProgressList({ currency, goals }) {
   return (
-    <section className="rounded-lg border border-slate-200 bg-white p-5 shadow-soft">
+    <section className="rounded-lg border border-[#e8dfce] bg-white p-5 shadow-soft">
       <div className="mb-4">
         <h3 className="text-lg font-bold">Savings Goal Progress</h3>
         <p className="mt-1 text-sm text-muted">Goal completion based on saved amount versus target.</p>
@@ -12,7 +12,7 @@ export default function GoalProgressList({ currency, goals }) {
       {goals.length ? (
         <div className="space-y-4">
           {goals.map((goal) => (
-            <article className="rounded-lg border border-slate-200 p-4" key={goal.id}>
+            <article className="rounded-lg border border-[#e8dfce] p-4" key={goal.id}>
               <div className="flex flex-col gap-2 sm:flex-row sm:items-start sm:justify-between">
                 <div>
                   <p className="font-semibold">{goal.title}</p>
@@ -32,11 +32,11 @@ export default function GoalProgressList({ currency, goals }) {
           ))}
         </div>
       ) : (
-        <div className="rounded-lg border border-dashed border-slate-300 bg-slate-50 px-4 py-8 text-center">
+        <div className="rounded-lg border border-dashed border-[#d8e7dc] bg-[#f6fbf7] px-4 py-8 text-center">
           <p className="font-semibold text-slate-800">No savings goals yet</p>
           <p className="mt-2 text-sm text-muted">Create goals to track target amounts, deadlines, and progress.</p>
           <Link
-            className="mt-4 inline-flex rounded-md bg-brand px-4 py-2 text-sm font-semibold text-white hover:bg-blue-700"
+            className="mt-4 inline-flex rounded-md bg-brand px-4 py-2 text-sm font-semibold text-white hover:bg-[#173d2e]"
             to="/dashboard/savings-goals"
           >
             Create Goal

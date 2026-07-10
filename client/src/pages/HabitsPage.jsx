@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import { CheckCircle2, Clock3, Flame, Plus, Trash2 } from "lucide-react";
 import api from "../services/api.js";
+import PageHeader from "../components/ui/PageHeader.jsx";
 
 const starterHabits = [
   "Save money today",
@@ -94,13 +95,7 @@ export default function HabitsPage() {
 
   return (
     <div className="space-y-6">
-      <header className="border-b border-slate-200 pb-5">
-        <p className="text-sm font-semibold text-brand">Financial Habit Tracker</p>
-        <h1 className="mt-1 text-3xl font-bold">Habits</h1>
-        <p className="mt-2 max-w-2xl text-sm leading-6 text-muted">
-          Create financial routines, mark completions, and track streaks, completion rates, and missed habits.
-        </p>
-      </header>
+      <PageHeader eyebrow="Your financial rhythm" title="Habits" description="Create financial routines, mark completions, and track streaks, completion rates, and missed habits." status={`${summary?.bestStreak || 0} day best streak`} />
 
       {error ? <p className="rounded-md bg-red-50 px-3 py-2 text-sm text-red-700">{error}</p> : null}
 
@@ -113,7 +108,7 @@ export default function HabitsPage() {
 
       <section className="grid gap-6 xl:grid-cols-[380px_1fr]">
         <div className="space-y-6">
-          <form className="rounded-lg border border-slate-200 bg-white p-5 shadow-soft" onSubmit={handleSubmit}>
+          <form className="rounded-lg border border-[#e8dfce] bg-white p-5 shadow-soft" onSubmit={handleSubmit}>
             <div className="mb-4">
               <h2 className="text-lg font-bold">Create Habit</h2>
               <p className="mt-1 text-sm text-muted">Pick a money routine and set how often it should happen.</p>
@@ -122,7 +117,7 @@ export default function HabitsPage() {
             <label className="block text-sm font-medium text-slate-700">
               Habit
               <input
-                className="mt-2 w-full rounded-md border border-slate-300 px-3 py-2 outline-none focus:border-brand focus:ring-2 focus:ring-blue-100"
+                className="mt-2 w-full rounded-md border border-slate-300 px-3 py-2 outline-none focus:border-brand focus:ring-2 focus:ring-emerald-100"
                 list="starter-habits"
                 name="habitName"
                 onChange={handleChange}
@@ -140,7 +135,7 @@ export default function HabitsPage() {
             <label className="mt-4 block text-sm font-medium text-slate-700">
               Frequency
               <select
-                className="mt-2 w-full rounded-md border border-slate-300 px-3 py-2 outline-none focus:border-brand focus:ring-2 focus:ring-blue-100"
+                className="mt-2 w-full rounded-md border border-slate-300 px-3 py-2 outline-none focus:border-brand focus:ring-2 focus:ring-emerald-100"
                 name="frequency"
                 onChange={handleChange}
                 value={formData.frequency}
@@ -154,7 +149,7 @@ export default function HabitsPage() {
             <label className="mt-4 block text-sm font-medium text-slate-700">
               Target completions per period
               <input
-                className="mt-2 w-full rounded-md border border-slate-300 px-3 py-2 outline-none focus:border-brand focus:ring-2 focus:ring-blue-100"
+                className="mt-2 w-full rounded-md border border-slate-300 px-3 py-2 outline-none focus:border-brand focus:ring-2 focus:ring-emerald-100"
                 min="1"
                 name="target"
                 onChange={handleChange}
@@ -164,7 +159,7 @@ export default function HabitsPage() {
             </label>
 
             <button
-              className="mt-5 inline-flex items-center justify-center gap-2 rounded-md bg-brand px-4 py-2 text-sm font-semibold text-white shadow-soft hover:bg-blue-700 disabled:opacity-70"
+              className="mt-5 inline-flex items-center justify-center gap-2 rounded-md bg-brand px-4 py-2 text-sm font-semibold text-white shadow-soft hover:bg-[#173d2e] disabled:opacity-70"
               disabled={submitting}
               type="submit"
             >
@@ -173,11 +168,12 @@ export default function HabitsPage() {
             </button>
           </form>
 
-          <section className="rounded-lg border border-slate-200 bg-white p-5 shadow-soft">
-            <h2 className="text-lg font-bold">Simple Reminders</h2>
+          <section className="rounded-lg border border-[#e8dfce] bg-[#fffaf0] p-5 shadow-soft">
+            <p className="text-sm font-bold text-amber">This week&apos;s rhythm</p>
+            <h2 className="mt-1 text-lg font-bold">Simple Reminders</h2>
             <div className="mt-4 space-y-3">
               {starterHabits.slice(0, 4).map((habit) => (
-                <p className="rounded-md bg-slate-50 px-3 py-2 text-sm text-slate-700" key={habit}>
+                <p className="rounded-md bg-white px-3 py-2 text-sm text-slate-700" key={habit}>
                   {habit}
                 </p>
               ))}
@@ -185,7 +181,7 @@ export default function HabitsPage() {
           </section>
         </div>
 
-        <section className="rounded-lg border border-slate-200 bg-white p-5 shadow-soft">
+        <section className="rounded-lg border border-[#e8dfce] bg-white p-5 shadow-soft">
           <div className="mb-5">
             <h2 className="text-lg font-bold">Habit Progress Dashboard</h2>
             <p className="mt-1 text-sm text-muted">Mark habits complete and watch streaks update.</p>
@@ -201,7 +197,7 @@ export default function HabitsPage() {
                     <div>
                       <div className="flex flex-wrap items-center gap-2">
                         <h3 className="font-semibold">{habit.habitName}</h3>
-                        <span className="rounded-md bg-blue-50 px-2 py-1 text-xs font-semibold capitalize text-brand">
+                        <span className="rounded-md bg-[#e6f3eb] px-2 py-1 text-xs font-semibold capitalize text-brand">
                           {habit.frequency}
                         </span>
                       </div>
@@ -212,7 +208,7 @@ export default function HabitsPage() {
                     </div>
                     <div className="flex flex-wrap gap-2">
                       <button
-                        className="inline-flex items-center justify-center gap-2 rounded-md bg-mint px-3 py-2 text-sm font-semibold text-white hover:bg-teal-800"
+                        className="inline-flex items-center justify-center gap-2 rounded-md bg-mint px-3 py-2 text-sm font-semibold text-white hover:bg-[#246648]"
                         onClick={() => markHabit(habit.id, true)}
                         type="button"
                       >
@@ -220,7 +216,7 @@ export default function HabitsPage() {
                         Complete
                       </button>
                       <button
-                        className="rounded-md border border-slate-200 px-3 py-2 text-sm font-semibold text-slate-700 hover:bg-slate-50"
+                        className="rounded-md border border-slate-200 px-3 py-2 text-sm font-semibold text-slate-700 hover:bg-[#f7f1e2]"
                         onClick={() => markHabit(habit.id, false)}
                         type="button"
                       >
@@ -243,7 +239,7 @@ export default function HabitsPage() {
               ))}
             </div>
           ) : (
-            <div className="rounded-lg border border-dashed border-slate-300 bg-slate-50 px-4 py-10 text-center">
+            <div className="rounded-lg border border-dashed border-slate-300 bg-[#f6fbf7] px-4 py-10 text-center">
               <p className="font-semibold text-slate-800">No habits yet</p>
               <p className="mt-2 text-sm text-muted">Create your first financial habit from the form.</p>
             </div>
@@ -256,7 +252,7 @@ export default function HabitsPage() {
 
 function SummaryTile({ icon: Icon, label, value }) {
   return (
-    <article className="rounded-lg border border-slate-200 bg-white p-5 shadow-soft">
+    <article className="rounded-lg border border-[#e8dfce] bg-white p-5 shadow-soft">
       <div className="flex items-center justify-between gap-4">
         <p className="text-sm font-medium text-muted">{label}</p>
         <Icon className="h-5 w-5 text-brand" aria-hidden="true" />

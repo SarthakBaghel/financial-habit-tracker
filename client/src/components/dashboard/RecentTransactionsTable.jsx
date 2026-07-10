@@ -3,7 +3,7 @@ import { formatCurrency, formatDate } from "../../utils/formatters.js";
 
 export default function RecentTransactionsTable({ currency, transactions }) {
   return (
-    <section className="rounded-lg border border-slate-200 bg-white p-5 shadow-soft">
+    <section className="rounded-lg border border-[#e8dfce] bg-white p-5 shadow-soft">
       <div className="mb-4 flex items-center justify-between gap-4">
         <div>
           <h3 className="text-lg font-bold">Recent Transactions</h3>
@@ -15,7 +15,7 @@ export default function RecentTransactionsTable({ currency, transactions }) {
         <div className="overflow-x-auto">
           <table className="w-full min-w-[640px] text-left text-sm">
             <thead>
-              <tr className="border-b border-slate-200 text-xs uppercase text-muted">
+              <tr className="border-b border-[#e8dfce] text-xs uppercase text-muted">
                 <th className="py-3 font-semibold">Type</th>
                 <th className="py-3 font-semibold">Category</th>
                 <th className="py-3 font-semibold">Date</th>
@@ -31,7 +31,7 @@ export default function RecentTransactionsTable({ currency, transactions }) {
                     <td className="py-3">
                       <span
                         className={`inline-flex items-center gap-2 rounded-md px-2 py-1 text-xs font-semibold ${
-                          isIncome ? "bg-teal-50 text-mint" : "bg-amber-50 text-amber"
+                          isIncome ? "bg-[#e7f4ed] text-mint" : "bg-[#fff1df] text-coral"
                         }`}
                       >
                         <Icon className="h-4 w-4" aria-hidden="true" />
@@ -48,7 +48,7 @@ export default function RecentTransactionsTable({ currency, transactions }) {
           </table>
         </div>
       ) : (
-        <div className="rounded-lg border border-dashed border-slate-300 bg-slate-50 px-4 py-8 text-center">
+        <div className="rounded-lg border border-dashed border-[#d8e7dc] bg-[#f6fbf7] px-4 py-8 text-center">
           <p className="font-semibold text-slate-800">No transactions yet</p>
           <p className="mt-2 text-sm text-muted">Income and expense records will appear here after Phase 5.</p>
         </div>
