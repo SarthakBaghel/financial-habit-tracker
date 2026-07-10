@@ -17,6 +17,18 @@ body {
   min-width: 320px;
 }
 
+@keyframes auth-enter {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
 ::selection {
   background: #d8ecdf;
   color: #17211d;

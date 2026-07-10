@@ -35,7 +35,7 @@ export default function AppLayout({ children }) {
         <div className="flex items-center justify-between gap-4">
           <div className="flex items-center gap-2">
             <span className="grid h-8 w-8 place-items-center rounded-md bg-brand text-xs font-extrabold text-white">W</span>
-            <div><p className="text-sm font-bold text-ink">WealthTrack</p><p className="text-xs text-muted">{user?.name}</p></div>
+            <p className="text-sm font-bold text-ink">WealthTrack</p>
           </div>
           <button
             className="rounded-md border border-[#e1d7c3] bg-white p-2 text-slate-700"
@@ -62,10 +62,10 @@ export default function AppLayout({ children }) {
           mobileOpen ? "translate-x-0" : "-translate-x-full"
         } lg:flex`}
       >
-        <div className="mb-8 flex items-start justify-between gap-4 px-2">
-          <div className="flex items-start gap-3">
+        <div className="mb-6 flex items-center justify-between gap-4 px-2">
+          <div className="flex items-center gap-3">
             <span className="grid h-10 w-10 shrink-0 place-items-center rounded-md bg-brand text-sm font-extrabold text-white">W</span>
-            <div><p className="text-base font-bold text-ink">WealthTrack</p><p className="mt-1 text-sm font-medium text-muted">Financial Habit Builder</p><p className="mt-3 text-sm text-muted">{user?.name}</p></div>
+            <p className="text-base font-bold text-ink">WealthTrack</p>
           </div>
           <button
             className="rounded-md border border-slate-200 p-2 text-slate-700 lg:hidden"
