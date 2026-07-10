@@ -13,7 +13,7 @@ import {
   XAxis,
   YAxis
 } from "recharts";
-import { Activity, ArrowRight, PiggyBank, Target, TrendingDown, TrendingUp, WalletCards } from "lucide-react";
+import { Activity, ArrowRight, Lightbulb, PiggyBank, ReceiptText, Target, TrendingDown, TrendingUp, WalletCards } from "lucide-react";
 import { Link } from "react-router-dom";
 import ChartPanel from "../components/dashboard/ChartPanel.jsx";
 import EmptyState from "../components/dashboard/EmptyState.jsx";
@@ -41,6 +41,7 @@ const emptyDashboard = {
       monthlyIncome: 0,
       monthlyIncomeTarget: 0,
       monthlyIncomeProgress: 0,
+      monthlyExpenses: 0,
       monthlySavings: 0,
       savingsTarget: 0,
       savingsProgress: 0,
@@ -130,12 +131,6 @@ export default function DashboardPage() {
   const hasMonthlyExpenses = dashboard.charts.monthlyExpenses.some((point) => point.amount > 0);
   const hasCategorySpending = dashboard.charts.categorySpending.length > 0;
   const baseline = dashboard.summary.baseline;
-  const baselineStatusClass = {
-    on_track: "bg-[#e6f3eb] text-brand",
-    met: "bg-[#fff1c7] text-amber",
-    behind: "bg-[#fff1df] text-coral",
-    neutral: "bg-slate-100 text-slate-600"
-  }[baseline.status.tone] || "bg-slate-100 text-slate-600";
 
   if (loading) {
     return (
@@ -184,31 +179,28 @@ export default function DashboardPage() {
         ))}
       </section>
 
-      <section className="rounded-lg border border-[#e8dfce] bg-white p-5 shadow-soft">
-        <div className="flex flex-col gap-3 border-b border-[#eee8dc] pb-4 sm:flex-row sm:items-start sm:justify-between">
-          <div>
-            <h2 className="text-lg font-bold">This month vs baseline</h2>
-            <p className="mt-1 text-sm text-muted">Your recorded progress against the monthly targets in your profile.</p>
-          </div>
-          <span className={`w-fit rounded-full px-2.5 py-1 text-xs font-bold ${baselineStatusClass}`}>{baseline.status.label}</span>
+      <section>
+        <div className="mb-4">
+          <h2 className="text-lg font-bold">Monthly insights</h2>
+          <p className="mt-1 text-sm text-muted">A quick read on this month&apos;s recorded activity.</p>
         </div>
-        <div className="mt-5 grid gap-6 md:grid-cols-2">
-          <BaselineProgress
-            actual={baseline.monthlyIncome}
-            currency={currency}
-            label="Monthly income target"
-            progress={baseline.monthlyIncomeProgress}
-            target={baseline.monthlyIncomeTarget}
-            tone="bg-brand"
-          />
-          <BaselineProgress
-            actual={baseline.monthlySavings}
-            currency={currency}
-            label="Monthly savings target"
-            progress={baseline.savingsProgress}
-            target={baseline.savingsTarget}
-            tone="bg-amber"
-          />
+        <div className="grid gap-4 md:grid-cols-2">
+          <InsightCard
+            icon={ReceiptText}
+            title="Spending load"
+            tone="coral"
+          >
+            {baseline.monthlyIncome
+              ? `Expenses are using ${formatPercent((baseline.monthlyExpenses / baseline.monthlyIncome) * 100)} of recorded income this month.`
+              : "Add income records to compare this month&apos;s expenses with your income."}
+          </InsightCard>
+          <InsightCard icon={Lightbulb} title="Savings target" tone="amber">
+            {baseline.savingsTarget
+              ? baseline.monthlySavings >= baseline.savingsTarget
+                ? "Your monthly savings target is met."
+                : `${formatCurrency(Math.max(0, baseline.savingsTarget - baseline.monthlySavings), currency)} more is needed to reach this month&apos;s savings target.`
+              : "Set a monthly savings target in Profile Setup to track what remains."}
+          </InsightCard>
         </div>
       </section>
 
@@ -327,25 +319,21 @@ export default function DashboardPage() {
   );
 }
 
-function BaselineProgress({ actual, currency, label, progress, target, tone }) {
-  const hasTarget = target > 0;
-  const remaining = Math.max(0, target - actual);
+function InsightCard({ children, icon: Icon, title, tone }) {
+  const toneClass = {
+    amber: "bg-[#fff1c7] text-amber",
+    coral: "bg-[#fff1df] text-coral"
+  }[tone] || "bg-[#e6f3eb] text-brand";
 
   return (
-    <div>
-      <div className="flex flex-wrap items-baseline justify-between gap-2">
-        <p className="text-sm font-semibold text-ink">{label}</p>
-        <p className="text-sm font-bold text-ink">{formatPercent(progress)}</p>
+    <article className="rounded-lg border border-[#e8dfce] bg-white p-5 shadow-soft">
+      <div className="flex items-start gap-3">
+        <span className={`rounded-md p-2 ${toneClass}`}><Icon className="h-5 w-5" aria-hidden="true" /></span>
+        <div>
+          <h3 className="text-sm font-bold">{title}</h3>
+          <p className="mt-2 text-sm leading-6 text-muted">{children}</p>
+        </div>
       </div>
-      <p className="mt-2 text-sm text-muted">
-        {hasTarget
-          ? `${formatCurrency(actual, currency)} recorded of ${formatCurrency(target, currency)}`
-          : "Set a target in Profile Setup to track progress."}
-      </p>
-      <div className="mt-3 h-2 overflow-hidden rounded-full bg-[#edf2ed]" aria-hidden="true">
-        <div className={`h-full rounded-full transition-[width] duration-500 ${tone}`} style={{ width: `${progress}%` }} />
-      </div>
-      {hasTarget ? <p className="mt-2 text-xs font-medium text-muted">{remaining ? `${formatCurrency(remaining, currency)} remaining` : "Target met"}</p> : null}
-    </div>
+    </article>
   );
 }

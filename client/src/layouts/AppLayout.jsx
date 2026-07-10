@@ -5,12 +5,12 @@ import useAuth from "../hooks/useAuth.js";
 
 const navigation = [
   { label: "Dashboard", icon: Home, to: "/dashboard" },
-  { label: "Profile Setup", icon: UserRound, to: "/dashboard/profile-setup" },
   { label: "Expenses", icon: CircleDollarSign, to: "/dashboard/transactions" },
   { label: "Habits", icon: Target, to: "/dashboard/habits" },
   { label: "Savings Goals", icon: PiggyBank, to: "/dashboard/savings-goals" },
   { label: "Analytics", icon: BarChart3, to: "/dashboard/analytics" },
-  { label: "Admin", icon: UserCog, to: "/dashboard/admin", adminOnly: true }
+  { label: "Admin", icon: UserCog, to: "/dashboard/admin", adminOnly: true },
+  { label: "Profile Setup", icon: UserRound, to: "/dashboard/profile-setup" }
 ];
 
 export default function AppLayout({ children }) {

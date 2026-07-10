@@ -362,6 +362,7 @@ async function run() {
       assert.equal(body.summary.baseline.monthlyIncome, 90000);
       assert.equal(body.summary.baseline.monthlyIncomeTarget, 90000);
       assert.equal(body.summary.baseline.monthlyIncomeProgress, 100);
+      assert.equal(body.summary.baseline.monthlyExpenses, 28000);
       assert.equal(body.summary.baseline.monthlySavings, 62000);
       assert.equal(body.summary.baseline.savingsTarget, 30000);
       assert.equal(body.summary.baseline.savingsProgress, 100);

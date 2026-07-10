@@ -214,6 +214,7 @@ export const getDashboardOverview = asyncHandler(async (req, res) => {
         monthlyIncome: currentMonthIncome,
         monthlyIncomeTarget,
         monthlyIncomeProgress: clampProgress(percentage(currentMonthIncome, monthlyIncomeTarget)),
+        monthlyExpenses: currentMonthExpenses,
         monthlySavings: currentMonthSavings,
         savingsTarget,
         savingsProgress: clampProgress(percentage(Math.max(0, currentMonthSavings), savingsTarget)),
