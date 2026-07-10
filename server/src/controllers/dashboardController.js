@@ -1,10 +1,15 @@
 import asyncHandler from "../utils/asyncHandler.js";
-import { Asset, Habit, SavingsGoal, Transaction } from "../models/index.js";
+import { Asset, Habit, Profile, SavingsGoal, Transaction } from "../models/index.js";
 
 const MONTH_COUNT = 6;
 
 function startOfMonth(date) {
   return new Date(date.getFullYear(), date.getMonth(), 1);
+}
+
+function monthProgress(date) {
+  const daysInMonth = new Date(date.getFullYear(), date.getMonth() + 1, 0).getDate();
+  return date.getDate() / daysInMonth;
 }
 
 function addMonths(date, amount) {
@@ -66,14 +71,17 @@ function currentAssetValue(assets) {
 
 export const getDashboardOverview = asyncHandler(async (req, res) => {
   const userId = req.user._id;
+  const now = new Date();
+  const currentMonthStart = startOfMonth(now);
   const monthBuckets = buildMonthBuckets();
   const firstBucketDate = monthBuckets[0].date;
 
-  const [transactions, habits, savingsGoals, assets] = await Promise.all([
+  const [transactions, habits, savingsGoals, assets, profile] = await Promise.all([
     Transaction.find({ userId }).sort({ date: -1 }).lean(),
     Habit.find({ userId, status: "active" }).lean(),
     SavingsGoal.find({ userId }).sort({ deadline: 1, createdAt: -1 }).lean(),
-    Asset.find({ userId }).sort({ date: -1 }).lean()
+    Asset.find({ userId }).sort({ date: -1 }).lean(),
+    Profile.findOne({ userId }).lean()
   ]);
 
   const totalIncome = transactions
@@ -86,6 +94,29 @@ export const getDashboardOverview = asyncHandler(async (req, res) => {
 
   const netSavings = totalIncome - totalExpenses;
   const savingsRate = percentage(netSavings, totalIncome);
+  const currentMonthTransactions = transactions.filter((transaction) => new Date(transaction.date) >= currentMonthStart);
+  const currentMonthIncome = currentMonthTransactions
+    .filter((transaction) => transaction.type === "income")
+    .reduce((total, transaction) => total + transaction.amount, 0);
+  const currentMonthExpenses = currentMonthTransactions
+    .filter((transaction) => transaction.type === "expense")
+    .reduce((total, transaction) => total + transaction.amount, 0);
+  const currentMonthSavings = currentMonthIncome - currentMonthExpenses;
+  const monthlyIncomeTarget = profile?.monthlyIncomeTarget || 0;
+  const savingsTarget = profile?.savingsTarget || 0;
+  const targetPace = monthProgress(now);
+  const incomeOnTrack = !monthlyIncomeTarget || currentMonthIncome >= monthlyIncomeTarget * targetPace;
+  const savingsOnTrack = !savingsTarget || currentMonthSavings >= savingsTarget * targetPace;
+  const targetsMet = (!monthlyIncomeTarget || currentMonthIncome >= monthlyIncomeTarget)
+    && (!savingsTarget || currentMonthSavings >= savingsTarget);
+  const hasBaselineTargets = Boolean(monthlyIncomeTarget || savingsTarget);
+  const baselineStatus = !hasBaselineTargets
+    ? { label: "Set targets", tone: "neutral" }
+    : targetsMet
+      ? { label: "Target met", tone: "met" }
+      : incomeOnTrack && savingsOnTrack
+        ? { label: "On track", tone: "on_track" }
+        : { label: "Behind target", tone: "behind" };
 
   const recentTransactions = transactions.slice(0, 6).map((transaction) => ({
     id: transaction._id,
@@ -178,7 +209,16 @@ export const getDashboardOverview = asyncHandler(async (req, res) => {
       savingsRate,
       activeHabits: habits.length,
       averageGoalProgress,
-      currentAssetValue: currentAssetValue(assets)
+      currentAssetValue: currentAssetValue(assets),
+      baseline: {
+        monthlyIncome: currentMonthIncome,
+        monthlyIncomeTarget,
+        monthlyIncomeProgress: clampProgress(percentage(currentMonthIncome, monthlyIncomeTarget)),
+        monthlySavings: currentMonthSavings,
+        savingsTarget,
+        savingsProgress: clampProgress(percentage(Math.max(0, currentMonthSavings), savingsTarget)),
+        status: baselineStatus
+      }
     },
     charts: {
       wealthTrend,

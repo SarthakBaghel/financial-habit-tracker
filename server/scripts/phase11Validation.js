@@ -359,6 +359,13 @@ async function run() {
       assert.equal(body.summary.activeHabits, 1);
       assert.equal(body.summary.averageGoalProgress, 100);
       assert.equal(body.summary.currentAssetValue, 125000);
+      assert.equal(body.summary.baseline.monthlyIncome, 90000);
+      assert.equal(body.summary.baseline.monthlyIncomeTarget, 90000);
+      assert.equal(body.summary.baseline.monthlyIncomeProgress, 100);
+      assert.equal(body.summary.baseline.monthlySavings, 62000);
+      assert.equal(body.summary.baseline.savingsTarget, 30000);
+      assert.equal(body.summary.baseline.savingsProgress, 100);
+      assert.equal(body.summary.baseline.status.label, "Target met");
       assert.equal(body.charts.wealthTrend.length, 6);
       assert.equal(body.charts.monthlyExpenses.length, 6);
       assert.ok(body.charts.categorySpending.length >= 2);

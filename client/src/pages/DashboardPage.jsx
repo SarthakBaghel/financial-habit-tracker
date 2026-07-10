@@ -36,7 +36,16 @@ const emptyDashboard = {
     savingsRate: 0,
     activeHabits: 0,
     averageGoalProgress: 0,
-    currentAssetValue: 0
+    currentAssetValue: 0,
+    baseline: {
+      monthlyIncome: 0,
+      monthlyIncomeTarget: 0,
+      monthlyIncomeProgress: 0,
+      monthlySavings: 0,
+      savingsTarget: 0,
+      savingsProgress: 0,
+      status: { label: "Set targets", tone: "neutral" }
+    }
   },
   charts: {
     wealthTrend: [],
@@ -120,6 +129,13 @@ export default function DashboardPage() {
   const hasWealthTrend = dashboard.charts.wealthTrend.some((point) => point.value > 0);
   const hasMonthlyExpenses = dashboard.charts.monthlyExpenses.some((point) => point.amount > 0);
   const hasCategorySpending = dashboard.charts.categorySpending.length > 0;
+  const baseline = dashboard.summary.baseline;
+  const baselineStatusClass = {
+    on_track: "bg-[#e6f3eb] text-brand",
+    met: "bg-[#fff1c7] text-amber",
+    behind: "bg-[#fff1df] text-coral",
+    neutral: "bg-slate-100 text-slate-600"
+  }[baseline.status.tone] || "bg-slate-100 text-slate-600";
 
   if (loading) {
     return (
@@ -133,7 +149,8 @@ export default function DashboardPage() {
     <div className="space-y-6">
       <PageHeader
         eyebrow="Your financial rhythm"
-        status="On track"
+        status={baseline.status.label}
+        statusTone={baseline.status.tone}
         title={`Welcome back, ${user?.name || "there"}`}
         description="Your income, spending, savings goals, habits, and wealth growth in one calm workspace."
         actions={<>
@@ -165,6 +182,34 @@ export default function DashboardPage() {
         {summaryCards.map((card) => (
           <SummaryCard {...card} key={card.label} />
         ))}
+      </section>
+
+      <section className="rounded-lg border border-[#e8dfce] bg-white p-5 shadow-soft">
+        <div className="flex flex-col gap-3 border-b border-[#eee8dc] pb-4 sm:flex-row sm:items-start sm:justify-between">
+          <div>
+            <h2 className="text-lg font-bold">This month vs baseline</h2>
+            <p className="mt-1 text-sm text-muted">Your recorded progress against the monthly targets in your profile.</p>
+          </div>
+          <span className={`w-fit rounded-full px-2.5 py-1 text-xs font-bold ${baselineStatusClass}`}>{baseline.status.label}</span>
+        </div>
+        <div className="mt-5 grid gap-6 md:grid-cols-2">
+          <BaselineProgress
+            actual={baseline.monthlyIncome}
+            currency={currency}
+            label="Monthly income target"
+            progress={baseline.monthlyIncomeProgress}
+            target={baseline.monthlyIncomeTarget}
+            tone="bg-brand"
+          />
+          <BaselineProgress
+            actual={baseline.monthlySavings}
+            currency={currency}
+            label="Monthly savings target"
+            progress={baseline.savingsProgress}
+            target={baseline.savingsTarget}
+            tone="bg-amber"
+          />
+        </div>
       </section>
 
       <section className="grid gap-4 lg:grid-cols-3">
@@ -278,6 +323,29 @@ export default function DashboardPage() {
       </section>
 
       <RecentTransactionsTable currency={currency} transactions={dashboard.recentTransactions} />
+    </div>
+  );
+}
+
+function BaselineProgress({ actual, currency, label, progress, target, tone }) {
+  const hasTarget = target > 0;
+  const remaining = Math.max(0, target - actual);
+
+  return (
+    <div>
+      <div className="flex flex-wrap items-baseline justify-between gap-2">
+        <p className="text-sm font-semibold text-ink">{label}</p>
+        <p className="text-sm font-bold text-ink">{formatPercent(progress)}</p>
+      </div>
+      <p className="mt-2 text-sm text-muted">
+        {hasTarget
+          ? `${formatCurrency(actual, currency)} recorded of ${formatCurrency(target, currency)}`
+          : "Set a target in Profile Setup to track progress."}
+      </p>
+      <div className="mt-3 h-2 overflow-hidden rounded-full bg-[#edf2ed]" aria-hidden="true">
+        <div className={`h-full rounded-full transition-[width] duration-500 ${tone}`} style={{ width: `${progress}%` }} />
+      </div>
+      {hasTarget ? <p className="mt-2 text-xs font-medium text-muted">{remaining ? `${formatCurrency(remaining, currency)} remaining` : "Target met"}</p> : null}
     </div>
   );
 }
