@@ -1,25 +1,19 @@
+import { Eye, EyeOff, UserPlus } from "lucide-react";
 import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
-import { UserPlus } from "lucide-react";
 import useAuth from "../hooks/useAuth.js";
+import AuthLayout from "../layouts/AuthLayout.jsx";
 
 export default function RegisterPage() {
   const { register } = useAuth();
   const navigate = useNavigate();
-  const [formData, setFormData] = useState({
-    name: "",
-    email: "",
-    password: "",
-    currencyPreference: "INR"
-  });
+  const [formData, setFormData] = useState({ name: "", email: "", password: "", currencyPreference: "INR" });
   const [error, setError] = useState("");
+  const [showPassword, setShowPassword] = useState(false);
   const [submitting, setSubmitting] = useState(false);
 
   const handleChange = (event) => {
-    setFormData((current) => ({
-      ...current,
-      [event.target.name]: event.target.value
-    }));
+    setFormData((current) => ({ ...current, [event.target.name]: event.target.value }));
   };
 
   const handleSubmit = async (event) => {
@@ -38,83 +32,20 @@ export default function RegisterPage() {
   };
 
   return (
-    <main className="flex min-h-screen items-center justify-center bg-surface px-4 py-10">
-      <section className="w-full max-w-md rounded-lg border border-slate-200 bg-white p-6 shadow-soft">
-        <div className="mb-6">
-          <p className="text-sm font-semibold text-brand">Start building better money habits</p>
-          <h1 className="mt-1 text-2xl font-bold">Create your account</h1>
-        </div>
-
-        <form className="space-y-4" onSubmit={handleSubmit}>
-          <label className="block text-sm font-medium text-slate-700">
-            Name
-            <input
-              className="mt-2 w-full rounded-md border border-slate-300 px-3 py-2 outline-none focus:border-brand focus:ring-2 focus:ring-blue-100"
-              name="name"
-              onChange={handleChange}
-              required
-              type="text"
-              value={formData.name}
-            />
-          </label>
-
-          <label className="block text-sm font-medium text-slate-700">
-            Email
-            <input
-              className="mt-2 w-full rounded-md border border-slate-300 px-3 py-2 outline-none focus:border-brand focus:ring-2 focus:ring-blue-100"
-              name="email"
-              onChange={handleChange}
-              required
-              type="email"
-              value={formData.email}
-            />
-          </label>
-
-          <label className="block text-sm font-medium text-slate-700">
-            Password
-            <input
-              className="mt-2 w-full rounded-md border border-slate-300 px-3 py-2 outline-none focus:border-brand focus:ring-2 focus:ring-blue-100"
-              minLength={8}
-              name="password"
-              onChange={handleChange}
-              required
-              type="password"
-              value={formData.password}
-            />
-          </label>
-
-          <label className="block text-sm font-medium text-slate-700">
-            Currency
-            <select
-              className="mt-2 w-full rounded-md border border-slate-300 px-3 py-2 outline-none focus:border-brand focus:ring-2 focus:ring-blue-100"
-              name="currencyPreference"
-              onChange={handleChange}
-              value={formData.currencyPreference}
-            >
-              <option value="INR">INR</option>
-              <option value="USD">USD</option>
-            </select>
-          </label>
-
-          {error ? <p className="rounded-md bg-red-50 px-3 py-2 text-sm text-red-700">{error}</p> : null}
-
-          <button
-            className="inline-flex w-full items-center justify-center gap-2 rounded-md bg-brand px-4 py-2 text-sm font-semibold text-white shadow-soft hover:bg-blue-700 disabled:cursor-not-allowed disabled:opacity-70"
-            disabled={submitting}
-            type="submit"
-          >
-            <UserPlus className="h-4 w-4" aria-hidden="true" />
-            {submitting ? "Creating account..." : "Create account"}
-          </button>
-        </form>
-
-        <p className="mt-5 text-center text-sm text-muted">
-          Already registered?{" "}
-          <Link className="font-semibold text-brand hover:text-blue-700" to="/login">
-            Log in
-          </Link>
-        </p>
-      </section>
-    </main>
+    <AuthLayout
+      eyebrow="Start your financial rhythm"
+      title="Build a clearer relationship with your money."
+      description="Create a free workspace, set your financial baseline, and begin with the habits that matter most."
+    >
+      <form className="space-y-5" onSubmit={handleSubmit}>
+        <label className="block text-sm font-semibold text-slate-700">Your name<input className="mt-2 w-full rounded-md border border-slate-300 px-3 py-2.5 outline-none transition focus:border-[#1e4d3a] focus:ring-2 focus:ring-emerald-100" name="name" onChange={handleChange} required type="text" value={formData.name} /></label>
+        <label className="block text-sm font-semibold text-slate-700">Email address<input className="mt-2 w-full rounded-md border border-slate-300 px-3 py-2.5 outline-none transition focus:border-[#1e4d3a] focus:ring-2 focus:ring-emerald-100" name="email" onChange={handleChange} required type="email" value={formData.email} /></label>
+        <label className="block text-sm font-semibold text-slate-700">Password<span className="relative mt-2 block"><input className="w-full rounded-md border border-slate-300 py-2.5 pl-3 pr-11 outline-none transition focus:border-[#1e4d3a] focus:ring-2 focus:ring-emerald-100" minLength={8} name="password" onChange={handleChange} required type={showPassword ? "text" : "password"} value={formData.password} /><button aria-label={showPassword ? "Hide password" : "Show password"} className="absolute inset-y-0 right-0 grid w-10 place-items-center text-slate-500 hover:text-[#1e4d3a]" onClick={() => setShowPassword((visible) => !visible)} title={showPassword ? "Hide password" : "Show password"} type="button">{showPassword ? <EyeOff className="h-4 w-4" aria-hidden="true" /> : <Eye className="h-4 w-4" aria-hidden="true" />}</button></span></label>
+        <label className="block text-sm font-semibold text-slate-700">Preferred currency<select className="mt-2 w-full rounded-md border border-slate-300 px-3 py-2.5 outline-none transition focus:border-[#1e4d3a] focus:ring-2 focus:ring-emerald-100" name="currencyPreference" onChange={handleChange} value={formData.currencyPreference}><option value="INR">INR (₹)</option><option value="USD">USD ($)</option></select></label>
+        {error ? <p className="rounded-md border border-red-100 bg-red-50 px-3 py-2 text-sm font-medium text-red-700">{error}</p> : null}
+        <button className="inline-flex w-full items-center justify-center gap-2 rounded-md bg-[#1e4d3a] px-4 py-3 text-sm font-bold text-white shadow-sm transition hover:bg-[#173d2e] disabled:cursor-not-allowed disabled:opacity-70" disabled={submitting} type="submit"><UserPlus className="h-4 w-4" aria-hidden="true" />{submitting ? "Creating your account..." : "Create your workspace"}</button>
+      </form>
+      <p className="mt-6 text-center text-sm text-slate-600">Already tracking with WealthTrack? <Link className="font-bold text-[#1e4d3a] hover:text-[#173d2e]" to="/login">Log in</Link></p>
+    </AuthLayout>
   );
 }

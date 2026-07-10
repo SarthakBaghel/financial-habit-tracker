@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { BarChart3, CircleDollarSign, Home, LogOut, Menu, PiggyBank, Target, UserCog, UserRound, X } from "lucide-react";
-import { NavLink } from "react-router-dom";
+import { NavLink, useNavigate } from "react-router-dom";
 import useAuth from "../hooks/useAuth.js";
 
 const navigation = [
@@ -15,8 +15,13 @@ const navigation = [
 
 export default function AppLayout({ children }) {
   const { logout, user } = useAuth();
+  const navigate = useNavigate();
   const [mobileOpen, setMobileOpen] = useState(false);
   const visibleNavigation = navigation.filter((item) => !item.adminOnly || user?.role === "admin");
+  const handleLogout = () => {
+    logout();
+    navigate("/", { replace: true });
+  };
 
   return (
     <div className="min-h-screen bg-surface text-ink">
@@ -79,7 +84,7 @@ export default function AppLayout({ children }) {
         </nav>
         <button
           className="mt-5 flex items-center justify-center gap-2 rounded-md border border-slate-200 px-3 py-2 text-sm font-semibold text-slate-700 hover:bg-slate-100"
-          onClick={logout}
+          onClick={handleLogout}
           type="button"
           aria-label="Logout"
         >
