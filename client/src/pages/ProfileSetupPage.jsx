@@ -44,7 +44,7 @@ export default function ProfileSetupPage() {
 
     try {
       await updateProfile(payload);
-      navigate("/", { replace: true });
+      navigate("/dashboard", { replace: true });
     } catch (apiError) {
       setError(apiError.response?.data?.message || "Could not save profile. Please try again.");
     } finally {

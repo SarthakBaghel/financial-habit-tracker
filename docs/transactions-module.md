@@ -56,7 +56,7 @@ Returns summary totals for the same filters.
 
 Route:
 
-- `/transactions`
+- `/dashboard/transactions`
 
 Implemented UI:
 

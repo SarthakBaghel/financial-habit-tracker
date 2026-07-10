@@ -37,7 +37,7 @@ export default function GoalProgressList({ currency, goals }) {
           <p className="mt-2 text-sm text-muted">Create goals to track target amounts, deadlines, and progress.</p>
           <Link
             className="mt-4 inline-flex rounded-md bg-brand px-4 py-2 text-sm font-semibold text-white hover:bg-blue-700"
-            to="/savings-goals"
+            to="/dashboard/savings-goals"
           >
             Create Goal
           </Link>

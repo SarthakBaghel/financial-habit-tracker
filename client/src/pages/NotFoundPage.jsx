@@ -12,7 +12,7 @@ export default function NotFoundPage() {
         </p>
         <Link
           className="mt-6 inline-flex items-center justify-center gap-2 rounded-md bg-brand px-4 py-2 text-sm font-semibold text-white hover:bg-blue-700"
-          to="/"
+          to="/dashboard"
         >
           <Home className="h-4 w-4" aria-hidden="true" />
           Go to dashboard

@@ -70,7 +70,7 @@ Computed display status:
 
 Route:
 
-- `/savings-goals`
+- `/dashboard/savings-goals`
 
 Implemented UI:
 
@@ -87,4 +87,4 @@ Implemented UI:
 
 ## Dashboard Integration
 
-The main dashboard continues to show top savings goals from the dashboard overview API. The dashboard empty state now links to `/savings-goals`.
+The main dashboard continues to show top savings goals from the dashboard overview API. The dashboard empty state now links to `/dashboard/savings-goals`.

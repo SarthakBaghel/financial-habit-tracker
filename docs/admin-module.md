@@ -62,7 +62,7 @@ Request body:
 
 Route:
 
-- `/admin`
+- `/dashboard/admin`
 
 Implemented views:
 

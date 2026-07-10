@@ -78,8 +78,8 @@ Pages added:
 
 - `/login`
 - `/register`
-- `/profile-setup`
-- `/admin`
+- `/dashboard/profile-setup`
+- `/dashboard/admin`
 
 Frontend auth behavior:
 
@@ -87,7 +87,7 @@ Frontend auth behavior:
 - Token is persisted in `localStorage` for this student MVP.
 - Axios attaches the token as a bearer token after login/register/session restore.
 - Private routes redirect unauthenticated users to `/login`.
-- Admin route redirects non-admin users to `/`.
+- Admin route redirects non-admin users to `/dashboard`.
 - Logout clears the token and session state.
 
 ## Phase Notes

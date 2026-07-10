@@ -4,13 +4,13 @@ import { NavLink } from "react-router-dom";
 import useAuth from "../hooks/useAuth.js";
 
 const navigation = [
-  { label: "Dashboard", icon: Home, to: "/" },
-  { label: "Profile Setup", icon: UserRound, to: "/profile-setup" },
-  { label: "Expenses", icon: CircleDollarSign, to: "/transactions" },
-  { label: "Habits", icon: Target, to: "/habits" },
-  { label: "Savings Goals", icon: PiggyBank, to: "/savings-goals" },
-  { label: "Analytics", icon: BarChart3, to: "/analytics" },
-  { label: "Admin", icon: UserCog, to: "/admin", adminOnly: true }
+  { label: "Dashboard", icon: Home, to: "/dashboard" },
+  { label: "Profile Setup", icon: UserRound, to: "/dashboard/profile-setup" },
+  { label: "Expenses", icon: CircleDollarSign, to: "/dashboard/transactions" },
+  { label: "Habits", icon: Target, to: "/dashboard/habits" },
+  { label: "Savings Goals", icon: PiggyBank, to: "/dashboard/savings-goals" },
+  { label: "Analytics", icon: BarChart3, to: "/dashboard/analytics" },
+  { label: "Admin", icon: UserCog, to: "/dashboard/admin", adminOnly: true }
 ];
 
 export default function AppLayout({ children }) {
@@ -106,7 +106,7 @@ function NavigationLink({ item, onNavigate }) {
       }
       onClick={onNavigate}
       to={item.to}
-      end={item.to === "/"}
+      end={item.to === "/dashboard"}
     >
       <Icon className="h-4 w-4 shrink-0" aria-hidden="true" />
       <span className="truncate">{item.label}</span>

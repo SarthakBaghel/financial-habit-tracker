@@ -12,6 +12,7 @@ const AdminPage = lazy(() => import("./pages/AdminPage.jsx"));
 const AnalyticsPage = lazy(() => import("./pages/AnalyticsPage.jsx"));
 const DashboardPage = lazy(() => import("./pages/DashboardPage.jsx"));
 const HabitsPage = lazy(() => import("./pages/HabitsPage.jsx"));
+const LandingPage = lazy(() => import("./pages/LandingPage.jsx"));
 const LoginPage = lazy(() => import("./pages/LoginPage.jsx"));
 const NotFoundPage = lazy(() => import("./pages/NotFoundPage.jsx"));
 const ProfileSetupPage = lazy(() => import("./pages/ProfileSetupPage.jsx"));
@@ -34,6 +35,10 @@ const router = createBrowserRouter([
   },
   {
     path: "/",
+    element: withPageLoader(<LandingPage />)
+  },
+  {
+    path: "/dashboard",
     element: (
       <ProtectedRoute>
         <App />

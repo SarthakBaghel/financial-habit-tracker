@@ -41,7 +41,7 @@ This runs the API validation first, then client linting and the production build
 Browser checks are run against the local Vite app using realistic data. Confirm these before submission:
 
 - Registration leads to profile setup; login restores the user session; logout returns the user to login.
-- Visiting protected pages while logged out redirects to login.
+- Visiting `/dashboard` or another protected dashboard route while logged out redirects to login.
 - Transaction, habit, savings-goal, analytics, and dashboard pages show saved data without console errors.
 - Chart containers render visible chart SVG/canvas content once financial records exist.
 - Admin users can open the Admin page; standard users are redirected to the dashboard.

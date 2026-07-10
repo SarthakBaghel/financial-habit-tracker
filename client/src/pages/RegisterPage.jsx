@@ -29,7 +29,7 @@ export default function RegisterPage() {
 
     try {
       await register(formData);
-      navigate("/profile-setup", { replace: true });
+      navigate("/dashboard/profile-setup", { replace: true });
     } catch (apiError) {
       setError(apiError.response?.data?.message || "Registration failed. Please try again.");
     } finally {

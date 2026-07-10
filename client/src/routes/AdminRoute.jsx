@@ -7,7 +7,7 @@ export default function AdminRoute({ children }) {
 
   return (
     <ProtectedRoute>
-      {user?.role === "admin" ? children : <Navigate replace to="/" />}
+      {user?.role === "admin" ? children : <Navigate replace to="/dashboard" />}
     </ProtectedRoute>
   );
 }

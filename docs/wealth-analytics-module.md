@@ -74,7 +74,7 @@ Deletes a user-owned asset entry.
 
 Route:
 
-- `/analytics`
+- `/dashboard/analytics`
 
 Implemented UI:
 

@@ -57,7 +57,7 @@ Returns aggregate habit statistics.
 
 Route:
 
-- `/habits`
+- `/dashboard/habits`
 
 Implemented UI:
 
