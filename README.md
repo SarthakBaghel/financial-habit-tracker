@@ -1,4 +1,4 @@
-# WealthTrack
+# WealthTrack: Project Report and Technical Documentation
 
 **Financial Habit Builder and Wealth Growth Tracker**
 
@@ -11,13 +11,20 @@ WealthTrack is a full-stack personal-finance application for students and young 
 | Live application | [financial-habit-tracker-client.vercel.app](https://financial-habit-tracker-client.vercel.app) |
 | API health check | [financial-habit-tracker.onrender.com/api/health](https://financial-habit-tracker.onrender.com/api/health) |
 | GitHub repository | [SarthakBaghel/financial-habit-tracker](https://github.com/SarthakBaghel/financial-habit-tracker) |
-| Detailed project report | [docs/project-report.md](docs/project-report.md) |
+| Complete project report | This `README.md` |
 
 ## Problem Statement
 
 Many people find it difficult to save regularly, control spending, and understand their overall financial position. Most personal-finance tools focus only on budgets or transactions. WealthTrack complements transaction tracking with a habit-building layer so users can make financial actions, savings goals, and longer-term wealth progress visible in one place.
 
-## What the Application Delivers
+## Project Objectives
+
+- Help users manually track income and expenses in a simple, INR-first workspace.
+- Encourage regular financial behaviours through habits, streaks, and progress visibility.
+- Make savings goals, assets, and wealth growth easier to understand through dashboard summaries and charts.
+- Provide a secure, responsive application with authenticated user flows and a basic admin monitoring view.
+
+## Scope and Deliverables
 
 - Secure registration, login, logout, protected routes, and role-based admin access.
 - Manual income and expense tracking with categories, filters, editing, deletion, and monthly summaries.
@@ -100,7 +107,7 @@ The browser stores the authenticated session token and sends it as a bearer toke
 └── README.md                       # Complete root project documentation
 ```
 
-## Feature Modules
+## Functional Modules
 
 ### Authentication and Profile
 
@@ -334,14 +341,9 @@ Redeploy each service after changing its environment variables.
 - Native mobile application.
 - More granular production network controls and private database connectivity.
 
-## Project Submission Checklist
+## Conclusion
 
-- [x] Public GitHub repository.
-- [x] Vercel frontend deployment.
-- [x] Render backend deployment and health endpoint.
-- [x] MongoDB Atlas database.
-- [x] Root README with setup, features, API, deployment, testing, and demo details.
-- [ ] Public project-feedback video link.
+WealthTrack delivers a complete manual financial-tracking workflow: a user can register, establish a personal baseline, record financial activity, build habits, manage goals, monitor wealth, and review progress through responsive dashboards and analytics. The project demonstrates a production-style React, Express, MongoDB application with secure authentication, tested API workflows, and deployed frontend and backend services.
 
 ## Author
 
